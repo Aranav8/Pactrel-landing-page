@@ -105,27 +105,38 @@ export function Hero() {
       `}</style>
 
       <div className="relative flex flex-col items-center text-center max-w-4xl px-6 z-10 w-full mt-10">
-        <a href="#how-it-works" className="flex items-center px-5 py-2.5 rounded-full bg-black/40 border border-white/10 text-white mb-12 shadow-lg backdrop-blur-md cursor-pointer hover:bg-black/60 transition-colors max-w-max">
-          <div className="text-[12px] font-medium text-white/80 tracking-wide uppercase">
-            The Dubsado that takes 30 mins to set up, not 2 weeks &rarr;
-          </div>
-        </a>
+        <div className="absolute -top-[100px] sm:-top-[110px] md:-top-[90px] lg:-top-6 left-[12%] sm:left-[15%] md:left-[8%] lg:-left-32 flex flex-col items-center gap-0 -rotate-[6deg] md:-rotate-[8deg] lg:-rotate-[10deg] pointer-events-none z-20 scale-[0.6] sm:scale-75 md:scale-[0.85] lg:scale-100 origin-bottom-left opacity-90 md:opacity-100">
+          <span className="text-[#e5c1a5] font-mono text-[13px] font-medium tracking-tight max-w-[180px] text-center leading-relaxed">
+            the Dubsado that takes 30 mins to set up, not 2 weeks
+          </span>
+          <svg 
+            width="70" 
+            height="70" 
+            viewBox="0 0 100 100" 
+            fill="none" 
+            xmlns="http://www.w3.org/2000/svg" 
+            className="text-[#e5c1a5] translate-x-12 md:translate-x-20 lg:translate-x-24 translate-y-[-15px] md:translate-y-[-5px]"
+          >
+            <path d="M 10 20 Q 70 -10, 85 90" stroke="currentColor" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
+            <path d="M 65 75 L 85 90 L 95 65" stroke="currentColor" strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </div>
 
-        <h1 className="text-[56px] text-[#FFF3F0] mb-6 leading-[1.3em] tracking-[-0.04em] font-medium">
+        <h1 className="text-4xl sm:text-5xl md:text-[56px] text-[#FFF3F0] mb-6 leading-[1.3em] tracking-[-0.04em] font-medium">
           Stop losing hours to client onboarding chaos.
         </h1>
 
-        <p className="text-[16px] text-white/65 max-w-2xl mb-12 font-normal text-center mx-auto">
+        <p className="text-[15px] sm:text-[16px] text-white/65 max-w-2xl mb-8 md:mb-12 font-normal text-center mx-auto px-2 md:px-0">
           Send one link. Your client signs the contract, pays the deposit, and submits their brief - without creating an account. Setup takes 30 minutes, not two weeks.
         </p>
 
-        <div className="flex flex-wrap items-center justify-center gap-4 mb-24 w-full">
-          <a href="#waitlist" className="px-8 py-3 rounded-[20px] bg-[#FAE6E1] text-[#000000] text-[14px] font-semibold hover:bg-[#E8D5CC] transition-colors inline-block text-center">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16 md:mb-24 w-full">
+          <a href="#waitlist" className="w-full sm:w-auto px-8 py-3 rounded-[20px] bg-[#FAE6E1] text-[#000000] text-[14px] font-semibold hover:bg-[#E8D5CC] transition-colors inline-block text-center">
             Claim my spot
           </a>
           <a
             href="#how-it-works"
-            className="px-6 py-3 rounded-[20px] border border-white/20 bg-transparent flex items-center gap-2 text-white text-[14px] font-semibold hover:bg-white/10 transition-colors"
+            className="w-full sm:w-auto px-6 py-3 rounded-[20px] border border-white/20 bg-transparent flex items-center justify-center gap-2 text-white text-[14px] font-semibold hover:bg-white/10 transition-colors"
           >
             See how it works ↓
           </a>

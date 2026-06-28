@@ -83,22 +83,22 @@ export function Features() {
           />
         </div>
 
-        {/* Feature Nav - removed backdrop-blur (extremely expensive filter) */}
-        <div className="w-full mb-12">
-          <div className="flex items-center w-full border border-white/10 rounded-full p-1.5 bg-[#171717] shadow-sm">
+        {/* Feature Nav */}
+        <div className="w-full mb-8 md:mb-12">
+          <div className="grid grid-cols-2 md:flex items-center w-full gap-1 md:gap-0 border border-white/10 rounded-2xl md:rounded-full p-1.5 bg-[#171717] shadow-sm">
             {TAB_DATA.map((tab, idx) => {
               const isActive = idx === activeTab;
               return (
                 <button
                   key={tab.label}
                   onClick={() => handleTabClick(idx)}
-                  className={`relative flex-1 py-2.5 rounded-full text-sm font-medium text-center cursor-pointer transition-colors overflow-hidden select-none outline-none ${
+                  className={`relative flex-1 shrink-0 py-2.5 rounded-xl md:rounded-full text-[13px] md:text-sm font-medium text-center cursor-pointer transition-colors overflow-hidden select-none outline-none px-2 md:px-0 whitespace-nowrap ${
                     isActive ? "text-white" : "text-white/60 hover:text-white"
                   }`}
                 >
                   {isActive && (
                     <>
-                      <div className="absolute inset-0 bg-white/[0.08] rounded-full" />
+                      <div className="absolute inset-0 bg-white/[0.08] rounded-xl md:rounded-full" />
                       <motion.div
                         key={activeTab}
                         className="absolute top-0 left-0 h-[1px] bg-gradient-to-r from-transparent via-white/30 to-white/60"
@@ -115,7 +115,7 @@ export function Features() {
           </div>
         </div>
 
-        <div className="w-full aspect-[4/3] md:aspect-[16/9] bg-[#0A0A0A] rounded-3xl border border-white/5 flex items-center justify-center overflow-hidden relative shadow-2xl z-0">
+        <div className="w-full aspect-[4/3] sm:aspect-[16/9] bg-[#0A0A0A] rounded-3xl border border-white/5 flex items-center justify-center overflow-hidden relative shadow-2xl z-0">
           <AnimatePresence mode="popLayout">
             <motion.div
               key={currentTab.image}
@@ -146,7 +146,7 @@ export function Features() {
         </div>
 
         {/* Feature Copy */}
-        <div className="mt-12 max-w-3xl mx-auto text-center h-32">
+        <div className="mt-8 max-w-3xl mx-auto text-center h-48 sm:h-40 md:h-32 px-4 md:px-0">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentTab.label}
@@ -155,7 +155,23 @@ export function Features() {
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.3 }}
             >
-              <h3 className="text-2xl font-medium text-white mb-4">
+              <div className="flex items-center justify-center gap-3 mb-4 relative right-4">
+                <svg 
+                  width="28" 
+                  height="28" 
+                  viewBox="0 0 45 35" 
+                  fill="none" 
+                  xmlns="http://www.w3.org/2000/svg" 
+                  className="text-[#e5c1a5] rotate-180 -scale-y-100"
+                >
+                  <path d="M42 4 C 30 12 20 28 4 28" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  <path d="M12 20 L 4 28 L 12 34" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                <span className="text-[#e5c1a5] font-mono text-[11px] font-medium tracking-tight -rotate-2">
+                  {currentTab.label}
+                </span>
+              </div>
+              <h3 className="text-2xl font-medium text-white mb-3">
                 {currentTab.heading}
               </h3>
               <p className="text-white/65 text-[15px] leading-relaxed">

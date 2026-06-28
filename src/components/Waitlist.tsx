@@ -15,7 +15,7 @@ function GradientBackground() {
         offsetY={0}
         scale={1}
         rotation={0}
-        speed={0}
+        speed={1.2}
         colors={["#222222", "#111111", "#1a1a1a"]}
       />
     </div>
@@ -27,16 +27,34 @@ export function Waitlist() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
+  const [selectedPlan, setSelectedPlan] = useState<{ plan: string, billing: string } | null>(null);
 
   useEffect(() => {
     const handlePlanSelection = (e: Event) => {
       const customEvent = e as CustomEvent;
-      setSelectedPlan(customEvent.detail);
+      // Support for the old format (just string) or the new object format
+      if (typeof customEvent.detail === 'string') {
+        setSelectedPlan({ plan: customEvent.detail, billing: 'monthly' });
+      } else {
+        setSelectedPlan(customEvent.detail);
+      }
     };
     window.addEventListener("selectPlan", handlePlanSelection);
     return () => window.removeEventListener("selectPlan", handlePlanSelection);
   }, []);
+
+  const getLockedRate = (plan: string, billing: string) => {
+    if (billing === "yearly") {
+      if (plan === "Starter") return "$108/yr";
+      if (plan === "Pro") return "$162/yr";
+      if (plan === "Agency") return "$270/yr";
+    } else {
+      if (plan === "Starter") return "$13/mo";
+      if (plan === "Pro") return "$19/mo";
+      if (plan === "Agency") return "$32/mo";
+    }
+    return "";
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -51,7 +69,7 @@ export function Waitlist() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, plan: selectedPlan }),
+        body: JSON.stringify({ email, plan: selectedPlan?.plan, billing: selectedPlan?.billing }),
       });
 
       if (!response.ok) {
@@ -69,54 +87,65 @@ export function Waitlist() {
 
   return (
     <section id="waitlist" className="flex flex-col items-center justify-center py-24 md:py-32 px-6">
-      <div className="max-w-6xl w-full border border-white/5 rounded-[32px] p-8 md:p-16 relative overflow-hidden flex flex-col items-center isolation-auto z-0 bg-[#0a0a0a]/50">
-        {/* Background radical gradient from imported component */}
+      <div className="max-w-6xl w-full border border-white/5 rounded-2xl md:rounded-[32px] p-6 md:p-16 relative overflow-hidden flex flex-col items-center isolation-auto z-0 bg-[#0a0a0a]/50">
         <GradientBackground />
 
         <div className="container flex w-full flex-col items-center justify-center max-w-2xl relative z-10">
-          <h2 className="py-2 text-center text-4xl md:text-[56px] tracking-tight text-[#FFF3F0] mb-4">
+          <h2 className="py-2 text-center text-4xl sm:text-5xl md:text-[56px] tracking-tight text-[#FFF3F0] mb-6 md:mb-8">
             Stop duct-taping your onboarding together.
           </h2>
-          <div className="flex flex-col items-center gap-6 mb-10 w-full max-w-xl">
-            <div className="flex items-center gap-3 bg-white/5 border border-white/10 px-4 py-2 rounded-full">
-              <span className="flex h-2 w-2 rounded-full bg-green-500" />
-              <span className="text-sm font-medium text-white/90">
-                <strong className="text-white">23</strong> of 50 founding spots remaining
-              </span>
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
-              <div className="bg-[#2563eb]/10 border border-[#2563eb]/30 rounded-2xl p-4 flex flex-col items-center text-center relative overflow-hidden">
-                <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#2563eb] to-transparent" />
-                <span className="text-xs font-semibold tracking-wider text-[#2563eb] uppercase mb-1">First 50</span>
-                <span className="text-xl font-medium text-[#2563eb] mb-1">40% off</span>
-                <span className="text-xs text-[#2563eb]/80">forever at launch</span>
+          
+          <div className="w-full max-w-md flex flex-col items-center mb-6 md:mb-8 min-h-[32px] justify-center">
+            {!selectedPlan ? (
+              <div className="flex flex-col sm:flex-row items-center gap-3 text-[15px] text-white/80 w-full sm:w-auto text-center sm:text-left">
+                <span className="font-medium">Select your plan:</span>
+                <select
+                  className="bg-transparent border border-white/20 rounded-md px-3 py-1.5 text-[#FFF3F0] focus:outline-none focus:border-white/40 hover:border-white/40 transition-colors cursor-pointer w-full sm:w-auto text-center sm:text-left"
+                  onChange={(e) => {
+                    if (e.target.value) {
+                      const [plan, billing] = e.target.value.split('-');
+                      setSelectedPlan({ plan, billing });
+                    }
+                  }}
+                  defaultValue=""
+                >
+                  <option value="" disabled className="bg-[#111] text-white/50">Choose a plan...</option>
+                  <optgroup label="Monthly" className="bg-[#111] text-white/50 font-semibold">
+                    <option value="Starter-monthly" className="bg-[#111] text-white font-normal">Starter · $13/mo</option>
+                    <option value="Pro-monthly" className="bg-[#111] text-white font-normal">Pro · $19/mo</option>
+                    <option value="Agency-monthly" className="bg-[#111] text-white font-normal">Agency · $32/mo</option>
+                  </optgroup>
+                  <optgroup label="Yearly (2 months free)" className="bg-[#111] text-white/50 font-semibold">
+                    <option value="Starter-yearly" className="bg-[#111] text-white font-normal">Starter · $108/yr</option>
+                    <option value="Pro-yearly" className="bg-[#111] text-white font-normal">Pro · $162/yr</option>
+                    <option value="Agency-yearly" className="bg-[#111] text-white font-normal">Agency · $270/yr</option>
+                  </optgroup>
+                </select>
               </div>
-              
-              <div className="bg-white/5 border border-white/10 rounded-2xl p-4 flex flex-col items-center text-center">
-                <span className="text-xs font-semibold tracking-wider text-white/40 uppercase mb-1">Next 100</span>
-                <span className="text-xl font-medium text-white/80 mb-1">30% off</span>
-                <span className="text-xs text-white/60">first 3 months</span>
+            ) : (
+              <div className="flex flex-col sm:flex-row items-center text-[15px] text-center sm:text-left gap-1 sm:gap-0">
+                <span className="text-[#FFF3F0]">
+                  <span className="text-emerald-400 font-bold mr-2">✓</span>
+                  <span className="font-medium">{selectedPlan.plan}</span> · {getLockedRate(selectedPlan.plan, selectedPlan.billing)} locked forever
+                </span>
+                <button 
+                  type="button" 
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setSelectedPlan(null);
+                    window.location.hash = "#pricing";
+                  }}
+                  className="text-[#60a5fa] hover:text-white transition-colors underline underline-offset-2 sm:ml-4 text-[13px]"
+                >
+                  Change
+                </button>
               </div>
-            </div>
+            )}
           </div>
 
-          {selectedPlan && (
-            <div className="text-sm font-medium text-[#2563eb] bg-[#2563eb]/10 border border-[#2563eb]/20 px-4 py-2 rounded-full mb-6 flex items-center gap-2">
-              Interested in: {selectedPlan}
-              <button 
-                type="button" 
-                onClick={() => setSelectedPlan(null)}
-                className="hover:text-[#2563eb]/80 text-[#2563eb]"
-              >
-                &times;
-              </button>
-            </div>
-          )}
-
-          <form onSubmit={handleSubmit} className="flex w-full max-w-md items-center gap-3 p-1">
+          <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row w-full max-w-md items-center gap-3 p-1">
             <input
-              className="h-12 w-full rounded-full border border-white/10 bg-white/5 px-4 md:px-5 font-medium text-white shadow-none ring-0 placeholder:text-white/40 focus:outline-none focus:border-white/20 focus:bg-white/10 transition-all"
+              className="h-12 w-full rounded-full border border-white/10 bg-white/5 px-4 md:px-5 font-medium text-white shadow-none ring-0 placeholder:text-white/40 focus:outline-none focus:border-white/20 focus:bg-white/10 transition-all text-center sm:text-left"
               placeholder="Enter your work email"
               type="email"
               value={email}
@@ -125,8 +154,8 @@ export function Waitlist() {
             />
             <button 
               type="submit"
-              disabled={loading}
-              className="h-12 rounded-full bg-[#E5E5E5] px-6 text-[#111] hover:bg-white font-medium transition-colors shrink-0 disabled:opacity-50 disabled:cursor-not-allowed"
+              disabled={loading || !selectedPlan}
+              className="h-12 w-full sm:w-auto rounded-full bg-[#E5E5E5] px-6 text-[#111] hover:bg-white font-medium transition-colors shrink-0 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? "Claiming..." : submitted ? "Spot Claimed!" : "Claim my spot"}
             </button>
@@ -143,12 +172,6 @@ export function Waitlist() {
               {error}
             </div>
           )}
-
-          <div className="mt-12 flex items-center gap-3">
-            <p className="tracking-tight text-white/50 text-sm">
-              Join web designers, developers, and consultants already on the list.
-            </p>
-          </div>
         </div>
       </div>
     </section>

@@ -40,7 +40,7 @@ const faqs = [
   {
     category: "Pricing & Plans",
     question: "Is there a free trial?",
-    answer: "Yes. You can start with one free client portal - no credit card required. It gives you full access to e-signature, deposit collection, and white-label branding so you can experience the complete workflow before committing. Upgrade when you're ready to run more than one portal simultaneously."
+    answer: "Because we are currently in a pre-launch waitlist period, the platform isn't open for trials just yet. By claiming your spot today, you lock in your discounted rate and pay absolutely nothing until we officially launch."
   },
   {
     category: "Pricing & Plans",
@@ -117,7 +117,7 @@ export function FAQ() {
               })}
             </div>
 
-            <div className="bg-[#0a0a0a] border border-white/5 rounded-[24px] p-8 flex flex-col w-full">
+            <div className="hidden md:flex bg-[#0a0a0a] border border-white/5 rounded-[24px] p-8 flex-col w-full">
               <h4 className="text-xl font-medium text-[#FFF3F0] mb-3">
                 Still have questions?
               </h4>
@@ -198,6 +198,35 @@ export function FAQ() {
                 })}
               </motion.div>
             </AnimatePresence>
+
+            <div className="md:hidden flex bg-[#0a0a0a] border border-white/5 rounded-[24px] p-8 flex-col w-full mt-4">
+              <h4 className="text-xl font-medium text-[#FFF3F0] mb-3">
+                Still have questions?
+              </h4>
+              <p className="text-[#FFF3F0]/60 text-[15px] mb-6 leading-relaxed">
+                We built this for freelancers. Send us a message and we'll get back to you fast.
+              </p>
+              <form className="flex flex-col gap-3" onSubmit={(e) => { e.preventDefault(); const btn = e.currentTarget.querySelector('button'); if(btn) btn.innerText = 'Message sent!'; }}>
+                <input 
+                  type="email" 
+                  placeholder="Your email" 
+                  className="w-full bg-[#111] border border-white/10 rounded-xl px-4 py-2.5 text-[14px] text-white placeholder:text-white/40 focus:outline-none focus:border-[#2563eb]/50 transition-colors"
+                  required
+                />
+                <textarea 
+                  placeholder="How can we help?" 
+                  rows={3}
+                  className="w-full bg-[#111] border border-white/10 rounded-xl px-4 py-2.5 text-[14px] text-white placeholder:text-white/40 focus:outline-none focus:border-[#2563eb]/50 transition-colors resize-none"
+                  required
+                />
+                <button 
+                  type="submit"
+                  className="w-full bg-white text-black rounded-xl px-4 py-2.5 text-[14px] font-medium hover:bg-gray-200 transition-colors mt-1"
+                >
+                  Send message
+                </button>
+              </form>
+            </div>
           </div>
         </div>
       </div>
