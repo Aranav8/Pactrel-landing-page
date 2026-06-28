@@ -73,7 +73,7 @@ export function Features() {
   const currentTab = TAB_DATA[activeTab];
 
   return (
-    <section className="py-24 md:py-32 px-6 flex justify-center bg-black">
+    <section id="features" className="py-24 md:py-32 px-6 flex justify-center bg-black">
       <div className="max-w-7xl w-full">
         <div className="mb-16">
           <SectionHeader

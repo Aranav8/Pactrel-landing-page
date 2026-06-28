@@ -18,6 +18,14 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
+    e.preventDefault();
+    const target = document.getElementById(targetId);
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <>
       <div
@@ -31,34 +39,34 @@ export function Navbar() {
       />
       <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-center px-6 py-4">
         <div className="w-full max-w-7xl flex items-center justify-between relative">
-          <div className="flex items-center">
+          <div className="flex items-center cursor-pointer" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>
             <img src="/Logo.svg" alt="Pactrel" className="h-6 md:h-8 w-auto" />
           </div>
 
           <div className="absolute left-1/2 -translate-x-1/2 hidden md:flex items-center gap-8 text-sm text-white/70">
-            <a href="#features" className="hover:text-white transition-colors">
+            <a href="#features" onClick={(e) => handleNavClick(e, 'features')} className="hover:text-white transition-colors">
               Features
             </a>
-            <a href="#how-it-works" className="hover:text-white transition-colors">
+            <a href="#how-it-works" onClick={(e) => handleNavClick(e, 'how-it-works')} className="hover:text-white transition-colors">
               How it works
             </a>
-            <a href="#pricing" className="hover:text-white transition-colors">
+            <a href="#pricing" onClick={(e) => handleNavClick(e, 'pricing')} className="hover:text-white transition-colors">
               Pricing
             </a>
-            <a href="#faq" className="hover:text-white transition-colors">
+            <a href="#faq" onClick={(e) => handleNavClick(e, 'faq')} className="hover:text-white transition-colors">
               FAQ
             </a>
           </div>
 
           <div className="flex items-center gap-4 hidden md:flex">
-            <a href="#waitlist" className="text-[13px] font-medium px-5 py-2.5 text-white transition-all rounded-full border border-white/10 bg-black/20 backdrop-blur-md hover:bg-black/40 hover:border-white/20 shadow-lg">
+            <a href="#waitlist" onClick={(e) => handleNavClick(e, 'waitlist')} className="text-[13px] font-medium px-5 py-2.5 text-white transition-all rounded-full border border-white/10 bg-black/20 backdrop-blur-md hover:bg-black/40 hover:border-white/20 shadow-lg">
               Claim my spot
             </a>
           </div>
 
           {/* Mobile nav placeholder */}
           <div className="md:hidden flex items-center">
-            <a href="#waitlist" className="text-sm font-medium px-4 py-2 bg-white text-black rounded-full hover:bg-white/90">
+            <a href="#waitlist" onClick={(e) => handleNavClick(e, 'waitlist')} className="text-sm font-medium px-4 py-2 bg-white text-black rounded-full hover:bg-white/90">
               Claim my spot
             </a>
           </div>
