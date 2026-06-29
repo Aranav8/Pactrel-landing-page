@@ -6,7 +6,7 @@ const items = [
   {
     title: "The 5-email loop",
     description:
-      "Proposal. Contract. Invoice. Deposit reminder. Every new client means the same chain - and every email is a chance for the deal to go cold.",
+      "Proposal. Contract. Invoice. Deposit reminder. Every new client means the same chain, and every email is a chance for the deal to go cold.",
     className: "lg:col-span-7 md:col-span-6 col-span-12",
     bgClass: "bg-[#0A0A0E] bg-[radial-gradient(ellipse_at_top_right,rgba(124,58,237,0.15)_0%,rgba(0,0,0,0)_70%)]",
     image: "/prob1.png",
@@ -44,7 +44,7 @@ export function Problem() {
         <SectionHeader
           badge="The Problem"
           title="Every freelancer knows this feeling."
-          description="Four things that are quietly killing your business - and your sanity."
+          description="Four things that are quietly killing your business and your sanity."
         />
       </div>
 

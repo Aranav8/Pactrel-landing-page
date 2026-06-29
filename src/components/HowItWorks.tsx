@@ -11,7 +11,7 @@ export function HowItWorks() {
     {
       icon: <FileSignature className="w-6 h-6 text-[#FFF3F0]" />,
       title: "Client signs, pays, and briefs you",
-      description: "They review, e-sign, pay the deposit, and fill the brief - in one tab, no account needed.",
+      description: "They review, e-sign, pay the deposit, and fill the brief in one tab, no account needed.",
     },
     {
       icon: <Rocket className="w-6 h-6 text-[#FFF3F0]" />,

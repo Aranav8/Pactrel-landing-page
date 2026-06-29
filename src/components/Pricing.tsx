@@ -160,7 +160,11 @@ export function Pricing() {
 
               <a
                 href="#waitlist"
-                onClick={() => window.dispatchEvent(new CustomEvent('selectPlan', { detail: plan.name }))}
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.getElementById('waitlist')?.scrollIntoView({ behavior: 'smooth' });
+                  window.dispatchEvent(new CustomEvent('selectPlan', { detail: plan.name }));
+                }}
                 className={`w-full py-3 rounded-full text-[15px] font-medium mb-10 transition-all inline-block text-center ${i === 1 ? "bg-[#2563eb] text-white hover:bg-[#1d4ed8]" : "bg-[#e5e5e5] text-black hover:bg-white"}`}
               >
                 Claim my spot →

@@ -9,7 +9,7 @@ export function Benefits() {
     },
     {
       label: "Look like the pro you are",
-      description: "Your client's first experience is a clean, branded portal with your logo - not a chain of emails from three different apps. First impressions convert. A professional onboarding flow signals a professional outcome.",
+      description: "Your client's first experience is a clean, branded portal with your logo, not a chain of emails from three different apps. First impressions convert. A professional onboarding flow signals a professional outcome.",
     },
     {
       label: "Kill the status update messages",
@@ -17,7 +17,7 @@ export function Benefits() {
     },
     {
       label: "Everything in one place, forever",
-      description: "Contracts, deposits, briefs, files, updates, and invoices - all tied to one project, one link. When a client asks about something six months later, you open one page, not your entire inbox.",
+      description: "Contracts, deposits, briefs, files, updates, and invoices are all tied to one project, one link. When a client asks about something six months later, you open one page, not your entire inbox.",
     },
   ];
 

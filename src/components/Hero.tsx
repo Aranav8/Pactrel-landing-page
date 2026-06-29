@@ -127,15 +127,20 @@ export function Hero() {
         </h1>
 
         <p className="text-[15px] sm:text-[16px] text-white/65 max-w-2xl mb-8 md:mb-12 font-normal text-center mx-auto px-2 md:px-0">
-          Send one link. Your client signs the contract, pays the deposit, and submits their brief - without creating an account. Setup takes 30 minutes, not two weeks.
+          Send one link. Your client signs the contract, pays the deposit, and submits their brief without creating an account. Setup takes 30 minutes, not two weeks.
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16 md:mb-24 w-full">
-          <a href="#waitlist" className="w-full sm:w-auto px-8 py-3 rounded-[20px] bg-[#FAE6E1] text-[#000000] text-[14px] font-semibold hover:bg-[#E8D5CC] transition-colors inline-block text-center">
+          <a 
+            href="#waitlist" 
+            onClick={(e) => { e.preventDefault(); document.getElementById('waitlist')?.scrollIntoView({ behavior: 'smooth' }); }}
+            className="w-full sm:w-auto px-8 py-3 rounded-[20px] bg-[#FAE6E1] text-[#000000] text-[14px] font-semibold hover:bg-[#E8D5CC] transition-colors inline-block text-center"
+          >
             Claim my spot
           </a>
           <a
             href="#how-it-works"
+            onClick={(e) => { e.preventDefault(); document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' }); }}
             className="w-full sm:w-auto px-6 py-3 rounded-[20px] border border-white/20 bg-transparent flex items-center justify-center gap-2 text-white text-[14px] font-semibold hover:bg-white/10 transition-colors"
           >
             See how it works ↓

@@ -3,12 +3,111 @@ import { SectionHeader } from "./ui/SectionHeader";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 
+function ContactForm({ className = "" }: { className?: string }) {
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [errorMsg, setErrorMsg] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email || !message) return;
+    
+    setStatus("loading");
+    setErrorMsg("");
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, message }),
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || "Failed to send message");
+      }
+
+      setStatus("success");
+      setEmail("");
+      setMessage("");
+      setTimeout(() => setStatus("idle"), 5000);
+    } catch (err: any) {
+      console.error(err);
+      setStatus("error");
+      setErrorMsg(err.message || "Something went wrong. Please try again.");
+    }
+  };
+
+  return (
+    <div className={`bg-[#0a0a0a] border border-white/5 rounded-[24px] p-8 flex flex-col w-full ${className}`}>
+      <h4 className="text-xl font-medium text-[#FFF3F0] mb-3">
+        Still have questions?
+      </h4>
+      <p className="text-[#FFF3F0]/60 text-[15px] mb-6 leading-relaxed">
+        We built this for freelancers. Send us a message and we'll get back to you fast.
+      </p>
+      
+      {status === "success" ? (
+        <div className="flex flex-col items-center justify-center py-6 text-center animate-in fade-in zoom-in duration-300 h-full">
+          <div className="w-12 h-12 rounded-full bg-green-500/10 border border-green-500/20 flex items-center justify-center mb-3">
+            <svg className="w-6 h-6 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <p className="text-green-400 font-medium">Message sent!</p>
+          <p className="text-white/50 text-[14px] mt-1">We'll get back to you shortly.</p>
+        </div>
+      ) : (
+        <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
+          <input 
+            type="email" 
+            placeholder="Your email" 
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            disabled={status === "loading"}
+            className="w-full bg-[#111] border border-white/10 rounded-xl px-4 py-2.5 text-[14px] text-white placeholder:text-white/40 focus:outline-none focus:border-[#2563eb]/50 transition-colors disabled:opacity-50"
+            required
+          />
+          <textarea 
+            placeholder="How can we help?" 
+            rows={3}
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            disabled={status === "loading"}
+            className="w-full bg-[#111] border border-white/10 rounded-xl px-4 py-2.5 text-[14px] text-white placeholder:text-white/40 focus:outline-none focus:border-[#2563eb]/50 transition-colors resize-none disabled:opacity-50"
+            required
+          />
+          {status === "error" && (
+            <p className="text-red-400 text-[13px] px-1 animate-in fade-in">{errorMsg}</p>
+          )}
+          <button 
+            type="submit"
+            disabled={status === "loading"}
+            className="w-full bg-white text-black rounded-xl px-4 py-2.5 text-[14px] font-medium hover:bg-gray-200 transition-colors mt-1 disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+          >
+            {status === "loading" ? (
+              <>
+                <svg className="animate-spin h-4 w-4 text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Sending...
+              </>
+            ) : "Send message"}
+          </button>
+        </form>
+      )}
+    </div>
+  );
+}
+
 const faqs = [
   // General
   {
     category: "General",
     question: "What is Pactrel and how does it work?",
-    answer: "Pactrel is a client onboarding portal for freelancers and small agencies. You create a project portal, fill in your proposal details, set a deposit amount, and share one branded link with your client. They open it, review the proposal, e-sign the contract, pay the deposit, and submit a brief - all in a single session, without creating an account. You get notified at every step, and the project dashboard stays live throughout the engagement."
+    answer: "Pactrel is a client onboarding portal for freelancers and small agencies. You create a project portal, fill in your proposal details, set a deposit amount, and share one branded link with your client. They open it, review the proposal, e-sign the contract, pay the deposit, and submit a brief, all in a single session, without creating an account. You get notified at every step, and the project dashboard stays live throughout the engagement."
   },
   {
     category: "General",
@@ -18,17 +117,17 @@ const faqs = [
   {
     category: "General",
     question: "Does my client need to create an account?",
-    answer: "No. Your client receives a magic link and opens it in their browser - no signup, no password, no friction. They complete the entire onboarding flow (sign, pay, brief) in a single session. This is a deliberate design choice: we've seen completion rates drop significantly when clients are forced to create accounts before paying."
+    answer: "No. Your client receives a magic link and opens it in their browser with no signup, no password, no friction. They complete the entire onboarding flow (sign, pay, brief) in a single session. This is a deliberate design choice: we've seen completion rates drop significantly when clients are forced to create accounts before paying."
   },
   {
     category: "General",
     question: "Is the e-signature legally binding?",
-    answer: "Yes. Pactrel captures a typed signature, IP address, timestamp, and unique session token for every signing event. This meets the requirements of the US ESIGN Act and EU eIDAS regulation for simple electronic signatures. A full audit trail is stored and exportable per project. For very high-value contracts, we recommend consulting a lawyer - but for typical freelance agreements, Pactrel's e-signature is fully enforceable."
+    answer: "Yes. Pactrel captures a typed signature, IP address, timestamp, and unique session token for every signing event. This meets the requirements of the US ESIGN Act and EU eIDAS regulation for simple electronic signatures. A full audit trail is stored and exportable per project. For very high-value contracts, we recommend consulting a lawyer, but for typical freelance agreements, Pactrel's e-signature is fully enforceable."
   },
   {
     category: "General",
     question: "How does the deposit payment work?",
-    answer: "After signing the contract, your client is taken directly to the payment step. They can pay by credit card, bank transfer, or ACH. Payments are processed securely and you receive a notification the moment payment clears. Pactrel never holds funds - money goes directly to your account. There are no transaction fees on top of your subscription."
+    answer: "After signing the contract, your client is taken directly to the payment step. They can pay by credit card, bank transfer, or ACH. Payments are processed securely and you receive a notification the moment payment clears. Pactrel never holds funds, money goes directly to your account. There are no transaction fees on top of your subscription."
   },
   {
     category: "General",
@@ -57,12 +156,12 @@ const faqs = [
   {
     category: "Client Experience",
     question: "What does my client actually see?",
-    answer: "Your client clicks a link and lands on a clean, branded page with your logo and project name. They see the proposal details, sign the contract, pay the deposit, and fill in the intake form - all in one sequential flow. After that, they can return to the same link at any time to check project status, download files, and leave feedback. It feels like a custom client portal you built yourself."
+    answer: "Your client clicks a link and lands on a clean, branded page with your logo and project name. They see the proposal details, sign the contract, pay the deposit, and fill in the intake form, all in one sequential flow. After that, they can return to the same link at any time to check project status, download files, and leave feedback. It feels like a custom client portal you built yourself."
   },
   {
     category: "Client Experience",
     question: "What happens if my client doesn't complete the onboarding?",
-    answer: "Pactrel sends automatic email reminders if a client opens the portal but doesn't complete a step - like signing the contract or paying the deposit (Pro and Agency plans). You can also see exactly where a client dropped off in your dashboard and send a manual nudge with one click."
+    answer: "Pactrel sends automatic email reminders if a client opens the portal but doesn't complete a step like signing the contract or paying the deposit (Pro and Agency plans). You can also see exactly where a client dropped off in your dashboard and send a manual nudge with one click."
   },
   {
     category: "Client Experience",
@@ -117,34 +216,7 @@ export function FAQ() {
               })}
             </div>
 
-            <div className="hidden md:flex bg-[#0a0a0a] border border-white/5 rounded-[24px] p-8 flex-col w-full">
-              <h4 className="text-xl font-medium text-[#FFF3F0] mb-3">
-                Still have questions?
-              </h4>
-              <p className="text-[#FFF3F0]/60 text-[15px] mb-6 leading-relaxed">
-                We built this for freelancers. Send us a message and we'll get back to you fast.
-              </p>
-              <form className="flex flex-col gap-3" onSubmit={(e) => { e.preventDefault(); const btn = e.currentTarget.querySelector('button'); if(btn) btn.innerText = 'Message sent!'; }}>
-                <input 
-                  type="email" 
-                  placeholder="Your email" 
-                  className="w-full bg-[#111] border border-white/10 rounded-xl px-4 py-2.5 text-[14px] text-white placeholder:text-white/40 focus:outline-none focus:border-[#2563eb]/50 transition-colors"
-                  required
-                />
-                <textarea 
-                  placeholder="How can we help?" 
-                  rows={3}
-                  className="w-full bg-[#111] border border-white/10 rounded-xl px-4 py-2.5 text-[14px] text-white placeholder:text-white/40 focus:outline-none focus:border-[#2563eb]/50 transition-colors resize-none"
-                  required
-                />
-                <button 
-                  type="submit"
-                  className="w-full bg-white text-black rounded-xl px-4 py-2.5 text-[14px] font-medium hover:bg-gray-200 transition-colors mt-1"
-                >
-                  Send message
-                </button>
-              </form>
-            </div>
+            <ContactForm className="hidden md:flex" />
           </div>
 
           {/* Right Column - FAQ Items */}
@@ -199,34 +271,7 @@ export function FAQ() {
               </motion.div>
             </AnimatePresence>
 
-            <div className="md:hidden flex bg-[#0a0a0a] border border-white/5 rounded-[24px] p-8 flex-col w-full mt-4">
-              <h4 className="text-xl font-medium text-[#FFF3F0] mb-3">
-                Still have questions?
-              </h4>
-              <p className="text-[#FFF3F0]/60 text-[15px] mb-6 leading-relaxed">
-                We built this for freelancers. Send us a message and we'll get back to you fast.
-              </p>
-              <form className="flex flex-col gap-3" onSubmit={(e) => { e.preventDefault(); const btn = e.currentTarget.querySelector('button'); if(btn) btn.innerText = 'Message sent!'; }}>
-                <input 
-                  type="email" 
-                  placeholder="Your email" 
-                  className="w-full bg-[#111] border border-white/10 rounded-xl px-4 py-2.5 text-[14px] text-white placeholder:text-white/40 focus:outline-none focus:border-[#2563eb]/50 transition-colors"
-                  required
-                />
-                <textarea 
-                  placeholder="How can we help?" 
-                  rows={3}
-                  className="w-full bg-[#111] border border-white/10 rounded-xl px-4 py-2.5 text-[14px] text-white placeholder:text-white/40 focus:outline-none focus:border-[#2563eb]/50 transition-colors resize-none"
-                  required
-                />
-                <button 
-                  type="submit"
-                  className="w-full bg-white text-black rounded-xl px-4 py-2.5 text-[14px] font-medium hover:bg-gray-200 transition-colors mt-1"
-                >
-                  Send message
-                </button>
-              </form>
-            </div>
+            <ContactForm className="md:hidden flex mt-4" />
           </div>
         </div>
       </div>

@@ -143,32 +143,49 @@ export function Waitlist() {
             )}
           </div>
 
-          <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row w-full max-w-md items-center gap-3 p-1">
-            <input
-              className="h-12 w-full rounded-full border border-white/10 bg-white/5 px-4 md:px-5 font-medium text-white shadow-none ring-0 placeholder:text-white/40 focus:outline-none focus:border-white/20 focus:bg-white/10 transition-all text-center sm:text-left"
-              placeholder="Enter your work email"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-            <button 
-              type="submit"
-              disabled={loading || !selectedPlan}
-              className="h-12 w-full sm:w-auto rounded-full bg-[#E5E5E5] px-6 text-[#111] hover:bg-white font-medium transition-colors shrink-0 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {loading ? "Claiming..." : submitted ? "Spot Claimed!" : "Claim my spot"}
-            </button>
-          </form>
-
-          {submitted && (
-            <div className="mt-4 text-green-400 text-sm font-medium animate-in fade-in slide-in-from-bottom-2">
-              Thanks for joining the waitlist! We'll be in touch soon.
+          {submitted ? (
+            <div className="flex flex-col items-center justify-center py-8 text-center animate-in fade-in zoom-in duration-500 w-full max-w-md">
+              <div className="w-16 h-16 rounded-full bg-green-500/10 border border-green-500/20 flex items-center justify-center mb-4 shadow-[0_0_20px_rgba(34,197,94,0.1)]">
+                <svg className="w-8 h-8 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <h3 className="text-2xl font-semibold text-[#FFF3F0] mb-2 tracking-tight">Spot Claimed! 🎉</h3>
+              <p className="text-[#FFF3F0]/70 text-[16px] leading-relaxed">
+                Check your inbox for confirmation. Your exclusive rate of <strong className="text-white font-medium">{getLockedRate(selectedPlan!.plan, selectedPlan!.billing)}</strong> has been locked in.
+              </p>
             </div>
+          ) : (
+            <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row w-full max-w-md items-center gap-3 p-1">
+              <input
+                className="h-12 w-full rounded-full border border-white/10 bg-white/5 px-4 md:px-5 font-medium text-white shadow-none ring-0 placeholder:text-white/40 focus:outline-none focus:border-white/20 focus:bg-white/10 transition-all text-center sm:text-left disabled:opacity-50"
+                placeholder="Enter your work email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                disabled={loading}
+                required
+              />
+              <button 
+                type="submit"
+                disabled={loading || !selectedPlan}
+                className="h-12 w-full sm:w-auto rounded-full bg-[#E5E5E5] px-6 text-[#111] hover:bg-white font-medium transition-colors shrink-0 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              >
+                {loading ? (
+                  <>
+                    <svg className="animate-spin h-4 w-4 text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Claiming...
+                  </>
+                ) : "Claim my spot"}
+              </button>
+            </form>
           )}
 
-          {error && (
-            <div className="mt-4 text-red-400 text-sm font-medium animate-in fade-in slide-in-from-bottom-2">
+          {error && !submitted && (
+            <div className="mt-4 text-red-400 text-sm font-medium animate-in fade-in slide-in-from-bottom-2 text-center bg-red-500/10 border border-red-500/20 px-4 py-2 rounded-full">
               {error}
             </div>
           )}

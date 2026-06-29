@@ -17,7 +17,7 @@ export function ComparisonTable() {
       cta: "Claim my spot →",
       description2: "5 active portals, e-signature, deposits, and white-label branding.",
       highlight: false,
-      monthlySave: "Save $6/mo — rate locked at signup, pay at launch",
+      monthlySave: "Save $6/mo, rate locked at signup, pay at launch",
       yearlySave: "Save $82 vs launch price",
       yearlyCalc: "($9/mo · 2 months free)",
       finePrint: "Rate locked forever. Pay nothing until launch."
@@ -33,7 +33,7 @@ export function ComparisonTable() {
       cta: "Claim my spot →",
       description2: "Unlimited portals, email automations, final invoices, and custom domains.",
       highlight: true,
-      monthlySave: "Save $10/mo — rate locked at signup, pay at launch",
+      monthlySave: "Save $10/mo, rate locked at signup, pay at launch",
       yearlySave: "Save $128 vs launch price",
       yearlyCalc: "($13.50/mo · 2 months free)",
       copilotCallout: "✦ Copilot charges $149/mo for custom domain alone.",
@@ -50,7 +50,7 @@ export function ComparisonTable() {
       cta: "Claim my spot →",
       description2: "Everything in Pro plus 3 team seats, priority support, and integrations.",
       highlight: false,
-      monthlySave: "Save $17/mo — rate locked at signup, pay at launch",
+      monthlySave: "Save $17/mo, rate locked at signup, pay at launch",
       yearlySave: "Save $220 vs launch price",
       yearlyCalc: "($22.50/mo · 2 months free)",
       finePrint: "Rate locked forever. Pay nothing until launch."
@@ -202,7 +202,7 @@ export function ComparisonTable() {
             <SectionHeader 
               badge="Pricing"
               title="Simple, flat pricing"
-              description="No per-user fees, no hidden limits. Lock in your rate today — prices go up permanently at launch. Pay nothing until we're live."
+              description="No per-user fees, no hidden limits. Lock in your rate today. Prices go up permanently at launch. Pay nothing until we're live."
             />
             <p className="mt-5 text-[14px] text-[#7A7A7A] font-medium tracking-tight">
               Yearly plan includes 2 months free on top of the locked rate.
@@ -319,7 +319,11 @@ export function ComparisonTable() {
                 <div className="relative z-10 mt-auto pt-6 w-full flex flex-col items-center">
                   <a
                     href="#waitlist"
-                    onClick={() => window.dispatchEvent(new CustomEvent('selectPlan', { detail: { plan: plan.name, billing: billing } }))}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      document.getElementById('waitlist')?.scrollIntoView({ behavior: 'smooth' });
+                      window.dispatchEvent(new CustomEvent('selectPlan', { detail: { plan: plan.name, billing: billing } }));
+                    }}
                     className={`w-full min-h-[52px] px-4 rounded-full flex items-center justify-center text-[15px] font-semibold tracking-wide transition-colors inline-flex shadow-lg whitespace-nowrap ${plan.highlight ? "text-white bg-[#2563eb] border border-[#2563eb]/50 hover:bg-[#1d4ed8]" : "text-black bg-[#E5E5E5] border border-transparent hover:bg-white"}`}
                   >
                     {plan.cta}

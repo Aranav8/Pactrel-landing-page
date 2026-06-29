@@ -16,7 +16,7 @@ const TAB_DATA: TabContent[] = [
     label: "Sign Contract",
     badgeIcon: "✍️",
     heading: "Legally binding. No printing, no PDFs, no screenshots.",
-    description: "Upload your own contract or use a template. Clients review the scope and sign in one click - timestamped, IP-verified, and stored automatically. Legally binding in the US and EU.",
+    description: "Upload your own contract or use a template. Clients review the scope and sign in one click, timestamped, IP-verified, and stored automatically. Legally binding in the US and EU.",
     image: "/sign_contract.png",
     accentClass: "from-blue-500/20 to-teal-400/20",
   },
@@ -24,7 +24,7 @@ const TAB_DATA: TabContent[] = [
     label: "Collect Deposit",
     badgeIcon: "💳",
     heading: "Deposits collected automatically. Before work starts.",
-    description: "Pactrel collects the deposit the moment the contract is signed - no separate invoice, no follow-up. They pay via card or bank transfer. You get notified when it clears. Work starts only when you're covered.",
+    description: "Pactrel collects the deposit the moment the contract is signed. No separate invoice, no follow-up. They pay via card or bank transfer. You get notified when it clears. Work starts only when you're covered.",
     image: "/deposit_collection.png",
     accentClass: "from-purple-500/20 to-indigo-400/20",
   },
@@ -32,7 +32,7 @@ const TAB_DATA: TabContent[] = [
     label: "Client Intake",
     badgeIcon: "👋",
     heading: "Get everything you need, before the first call.",
-    description: "After payment, clients fill in your custom brief - goals, references, and brand assets all in one place. No more hunting through email threads to find a logo.",
+    description: "After payment, clients fill in your custom brief with goals, references, and brand assets all in one place. No more hunting through email threads to find a logo.",
     image: "/client_intake.png",
     accentClass: "from-pink-500/20 to-orange-400/20",
   },
@@ -78,7 +78,7 @@ export function Features() {
         <div className="mb-16">
           <SectionHeader
             badge="Core Features"
-            title="From proposal to project - in one place."
+            title="From proposal to project in one place."
             description="Pactrel handles the full client journey so you can skip the admin and get to the work."
           />
         </div>
