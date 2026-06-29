@@ -178,8 +178,25 @@ export function FAQ() {
 
   const filteredFaqs = faqs.filter(f => f.category === activeTab);
 
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map((faq) => ({
+      "@type": "Question",
+      "name": faq.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.answer
+      }
+    }))
+  };
+
   return (
     <section className="py-24 md:py-32 px-6 flex justify-center border-t border-white/5 bg-black" id="faq">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
       <div className="max-w-6xl w-full flex flex-col gap-16 md:gap-24">
         {/* Header Row */}
         <div className="flex flex-col mb-4">

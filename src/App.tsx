@@ -12,27 +12,40 @@ import { FAQ } from "./components/FAQ";
 import { Waitlist } from "./components/Waitlist";
 import { Footer } from "./components/Footer";
 import { MouseGlow } from "./components/ui/MouseGlow";
+import { CookieBanner } from "./components/CookieBanner";
+
+import { PrivacyPolicy } from "./components/PrivacyPolicy";
+import { TermsAndConditions } from "./components/TermsAndConditions";
 
 export default function App() {
+  const path = window.location.pathname;
+
   return (
     <div className="min-h-screen bg-black text-white selection:bg-white/30 selection:text-white antialiased">
       <MouseGlow />
+      <CookieBanner />
       <Navbar />
 
-      <main className="w-full">
-        <Hero />
-        <Intro />
-        <Problem />
-        <FounderNote />
-        <Features />
-        <HowItWorks />
-        <Benefits />
+      {path === "/privacy" ? (
+        <PrivacyPolicy />
+      ) : path === "/terms" ? (
+        <TermsAndConditions />
+      ) : (
+        <main className="w-full">
+          <Hero />
+          <Intro />
+          <Problem />
+          <FounderNote />
+          <Features />
+          <HowItWorks />
+          <Benefits />
 
-        {/* Pricing & Comparison */}
-        <ComparisonTable />
-        <FAQ />
-        <Waitlist />
-      </main>
+          {/* Pricing & Comparison */}
+          <ComparisonTable />
+          <FAQ />
+          <Waitlist />
+        </main>
+      )}
 
       <Footer />
     </div>

@@ -31,8 +31,8 @@ export function Footer() {
                 </div>
                 <div className="flex flex-col gap-5 text-white/60">
                     <p className="font-semibold text-white/80 mb-2">Legal</p>
-                    <a href="#" className="hover:text-white transition-colors">Terms of service</a>
-                    <a href="#" className="hover:text-white transition-colors">Privacy policy</a>
+                    <a href="/terms" className="hover:text-white transition-colors">Terms of service</a>
+                    <a href="/privacy" className="hover:text-white transition-colors">Privacy policy</a>
                 </div>
             </div>
         </div>
