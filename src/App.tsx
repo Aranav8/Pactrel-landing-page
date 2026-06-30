@@ -16,6 +16,7 @@ import { CookieBanner } from "./components/CookieBanner";
 
 import { PrivacyPolicy } from "./components/PrivacyPolicy";
 import { TermsAndConditions } from "./components/TermsAndConditions";
+import { NotFound } from "./components/NotFound";
 
 export default function App() {
   const path = window.location.pathname;
@@ -26,11 +27,7 @@ export default function App() {
       <CookieBanner />
       <Navbar />
 
-      {path === "/privacy" ? (
-        <PrivacyPolicy />
-      ) : path === "/terms" ? (
-        <TermsAndConditions />
-      ) : (
+      {path === "/" ? (
         <main className="w-full">
           <Hero />
           <Intro />
@@ -45,6 +42,12 @@ export default function App() {
           <FAQ />
           <Waitlist />
         </main>
+      ) : path === "/privacy" ? (
+        <PrivacyPolicy />
+      ) : path === "/terms" ? (
+        <TermsAndConditions />
+      ) : (
+        <NotFound />
       )}
 
       <Footer />
