@@ -44,9 +44,19 @@ export function PrivacyPolicy() {
             When utilizing our electronic signature features, we capture and store data necessary to create a legally binding signature audit trail, including your IP address, timestamp, and browser user agent.
           </p>
 
-          <h2 className="text-2xl font-medium text-white">6. Contact Us</h2>
+          <h2 className="text-2xl font-medium text-white">6. Data Retention</h2>
           <p>
-            If you have any questions about this privacy policy or our privacy practices, please contact us at hello@pactrel.com.
+            We retain your personal data for as long as your account remains active. If you close your account, we retain data for up to 90 days to allow for account recovery, after which it is permanently deleted, except where retention is required by law (e.g., financial transaction records, which may be retained longer for tax and compliance purposes).
+          </p>
+
+          <h2 className="text-2xl font-medium text-white">7. Your Rights</h2>
+          <p>
+            Depending on your location, you may have the right to access, correct, delete, or export your personal data. To exercise any of these rights, contact us at aranavk08@gmail.com. We will respond within 30 days.
+          </p>
+
+          <h2 className="text-2xl font-medium text-white">8. Contact Us</h2>
+          <p>
+            If you have any questions about this privacy policy or our privacy practices, please contact us at aranavk08@gmail.com.
           </p>
         </div>
       </div>

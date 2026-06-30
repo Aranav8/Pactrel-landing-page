@@ -16,8 +16,8 @@ export function Footer() {
               <div className="flex items-center shrink-0 cursor-pointer" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>
                  <img src="/Logo.svg" alt="Pactrel" className="h-7 md:h-8 w-auto" />
               </div>
-              <p className="text-sm text-white/50 max-w-[200px]">
-                The client portal for freelancers who don't have time to waste.
+              <p className="text-sm text-white/50 max-w-[250px] leading-relaxed">
+                The client portal for freelancers who'd rather be working.
               </p>
             </div>
             
