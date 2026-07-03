@@ -3,21 +3,23 @@ import { GrainGradient } from "@paper-design/shaders-react";
 
 function GradientBackground() {
   return (
-    <div className="absolute inset-0 z-0">
-      <GrainGradient
-        style={{ height: "100%", width: "100%", position: "absolute", top: 0, left: 0 }}
-        colorBack="#000000"
-        softness={0.76}
-        intensity={0.45}
-        noise={0.03}
-        shape="corners"
-        offsetX={0}
-        offsetY={0}
-        scale={1}
-        rotation={0}
-        speed={1.2}
-        colors={["#222222", "#111111", "#1a1a1a"]}
-      />
+    <div className="absolute inset-0 z-0 ph-no-capture overflow-hidden rounded-2xl md:rounded-[32px]">
+      <div className="w-full h-full absolute inset-0">
+        <GrainGradient
+          style={{ height: "100%", width: "100%", position: "absolute", top: 0, left: 0 }}
+          colorBack="#000000"
+          softness={0.76}
+          intensity={0.45}
+          noise={0.03}
+          shape="corners"
+          offsetX={0}
+          offsetY={0}
+          scale={1}
+          rotation={0}
+          speed={1.2}
+          colors={["#222222", "#111111", "#1a1a1a"]}
+        />
+      </div>
     </div>
   );
 }

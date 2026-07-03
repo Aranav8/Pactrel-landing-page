@@ -61,7 +61,7 @@ export function Hero() {
       className="relative pt-30 pb-20 overflow-hidden flex flex-col items-center min-h-[1200px] bg-black font-sans"
     >
       {/* Animated Noise Gradient Background (Optimized WebGL) */}
-      <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden opacity-90">
+      <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden opacity-90 ph-no-capture">
         <div className="absolute top-0 left-0 w-[50%] h-[50%] origin-top-left scale-[200%]">
           <GrainGradient
             style={{ height: "100%", width: "100%", position: "absolute", top: 0, left: 0 }}

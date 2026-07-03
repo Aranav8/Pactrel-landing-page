@@ -8,7 +8,7 @@ export function CTA() {
       </div>
 
       {/* Hero-type Grain Gradient Background (Optimized) */}
-      <div className="absolute bottom-0 left-0 right-0 z-0 h-[400px] pointer-events-none opacity-60">
+      <div className="absolute bottom-0 left-0 right-0 z-0 h-[400px] pointer-events-none opacity-60 ph-no-capture">
         <div className="absolute top-0 left-0 w-[50%] h-[50%] origin-top-left scale-[200%]">
           <GrainGradient
             style={{ height: "100%", width: "100%", position: "absolute", top: 0, left: 0 }}
