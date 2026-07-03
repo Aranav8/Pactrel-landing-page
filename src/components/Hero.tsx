@@ -5,6 +5,7 @@ import {
   useTransform,
   useMotionValue,
   useSpring,
+  useInView,
 } from "motion/react";
 import { GrainGradient } from "@paper-design/shaders-react";
 
@@ -15,6 +16,7 @@ export function Hero() {
     target: containerRef,
     offset: ["start start", "end start"],
   });
+  const isGradientInView = useInView(containerRef, { margin: "400px 0px" });
 
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -62,22 +64,25 @@ export function Hero() {
     >
       {/* Animated Noise Gradient Background (Optimized WebGL) */}
       <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden opacity-90 ph-no-capture">
-        <div className="absolute top-0 left-0 w-[50%] h-[50%] origin-top-left scale-[200%]">
-          <GrainGradient
-            style={{ height: "100%", width: "100%", position: "absolute", top: 0, left: 0 }}
-            colorBack="#000000"
-            softness={0.85}
-            intensity={0.4}
-            noise={0.035}
-            shape="corners"
-            offsetX={0}
-            offsetY={0}
-            scale={1.2}
-            rotation={0}
-            speed={1.2}
-            colors={["#2563eb", "#e5c1a5", "#4f46e5"]}
-          />
-        </div>
+        <div className="absolute inset-0 bg-gradient-to-br from-[#2563eb]/30 via-[#e5c1a5]/10 to-[#4f46e5]/30" />
+        {isGradientInView && (
+          <div className="absolute top-0 left-0 w-[50%] h-[50%] origin-top-left scale-[200%]">
+            <GrainGradient
+              style={{ height: "100%", width: "100%", position: "absolute", top: 0, left: 0 }}
+              colorBack="#000000"
+              softness={0.85}
+              intensity={0.4}
+              noise={0.035}
+              shape="corners"
+              offsetX={0}
+              offsetY={0}
+              scale={1.2}
+              rotation={0}
+              speed={1.2}
+              colors={["#2563eb", "#e5c1a5", "#4f46e5"]}
+            />
+          </div>
+        )}
         {/* Fade gradient out at the bottom */}
         <div className="absolute inset-x-0 bottom-0 h-96 bg-gradient-to-t from-black via-black/80 to-transparent z-10" />
       </div>

@@ -1,25 +1,32 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { GrainGradient } from "@paper-design/shaders-react";
+import { useInView } from "motion/react";
 
 function GradientBackground() {
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { margin: "400px 0px" });
+
   return (
-    <div className="absolute inset-0 z-0 ph-no-capture overflow-hidden rounded-2xl md:rounded-[32px]">
-      <div className="w-full h-full absolute inset-0">
-        <GrainGradient
-          style={{ height: "100%", width: "100%", position: "absolute", top: 0, left: 0 }}
-          colorBack="#000000"
-          softness={0.76}
-          intensity={0.45}
-          noise={0.03}
-          shape="corners"
-          offsetX={0}
-          offsetY={0}
-          scale={1}
-          rotation={0}
-          speed={1.2}
-          colors={["#222222", "#111111", "#1a1a1a"]}
-        />
-      </div>
+    <div ref={ref} className="absolute inset-0 z-0 ph-no-capture overflow-hidden rounded-2xl md:rounded-[32px]">
+      <div className="absolute inset-0 bg-gradient-to-br from-[#222222]/80 via-[#111111]/80 to-[#1a1a1a]/80" />
+      {isInView && (
+        <div className="w-full h-full absolute inset-0">
+          <GrainGradient
+            style={{ height: "100%", width: "100%", position: "absolute", top: 0, left: 0 }}
+            colorBack="#000000"
+            softness={0.76}
+            intensity={0.45}
+            noise={0.03}
+            shape="corners"
+            offsetX={0}
+            offsetY={0}
+            scale={1}
+            rotation={0}
+            speed={1.2}
+            colors={["#222222", "#111111", "#1a1a1a"]}
+          />
+        </div>
+      )}
     </div>
   );
 }
