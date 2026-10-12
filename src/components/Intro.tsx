@@ -20,7 +20,7 @@ export function Intro() {
           badge="The problem"
           title={
             <>
-              Your onboarding process is{" "}
+              Your client admin is{" "}
               <span className="text-white/65">costing you money and clients.</span>
             </>
           }
@@ -31,7 +31,7 @@ export function Intro() {
             Every new client means the same exhausting loop.
           </div>
           <div className="flex-1 text-lg text-white/65 leading-relaxed md:pt-4">
-            Proposal in Gmail. Contract as a PDF attachment. Invoice in a separate app. Deposit chased on WhatsApp. Brief scattered across a Google Doc and three emails. By the time work actually starts, you've spent 3-5 hours on administration, not the work you're paid for.
+            Every tool covers one step, so you become the glue between them: copying details from the proposal into the contract, reminding clients to pay, digging through threads for the brief, and answering "where are we?" until the final invoice. That's hours of administration, not the work you're paid for.
           </div>
         </div>
 
@@ -40,7 +40,7 @@ export function Intro() {
             style={{ opacity: para1Opacity }}
             className="text-2xl sm:text-3xl md:text-[32px] font-medium text-white/90 leading-[1.3] tracking-tight max-w-5xl transition-colors duration-200"
           >
-            Pactrel replaces that chaos with a single branded link. Your client lands on a clean page with your logo, reviews the proposal, signs the contract, pays their deposit, and submits a brief, all in one place, in one sitting. No logins. No passwords. No back-and-forth.
+            Pactrel replaces that chaos with a single branded link. Your client reviews the proposal, signs, pays your deposit, and submits a brief in one sitting. Then the same link runs the project: files, messages, approvals, and the final invoice. No logins. No passwords. No back-and-forth.
           </motion.p>
           <motion.p 
             style={{ opacity: para2Opacity }}

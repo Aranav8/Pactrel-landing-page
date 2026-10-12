@@ -33,6 +33,7 @@ function GradientBackground() {
 
 export function Waitlist() {
   const [email, setEmail] = useState("");
+  const [website, setWebsite] = useState(""); // honeypot, hidden from real visitors
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -53,14 +54,15 @@ export function Waitlist() {
   }, []);
 
   const getLockedRate = (plan: string, billing: string) => {
+    if (plan === "Free") return "$0";
     if (billing === "yearly") {
-      if (plan === "Starter") return "$108/yr";
-      if (plan === "Pro") return "$162/yr";
-      if (plan === "Agency") return "$270/yr";
+      if (plan === "Starter") return "$120/yr";
+      if (plan === "Pro") return "$250/yr";
+      if (plan === "Agency") return "$490/yr";
     } else {
-      if (plan === "Starter") return "$13/mo";
-      if (plan === "Pro") return "$19/mo";
-      if (plan === "Agency") return "$32/mo";
+      if (plan === "Starter") return "$12/mo";
+      if (plan === "Pro") return "$25/mo";
+      if (plan === "Agency") return "$49/mo";
     }
     return "";
   };
@@ -78,17 +80,18 @@ export function Waitlist() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, plan: selectedPlan?.plan, billing: selectedPlan?.billing }),
+        body: JSON.stringify({ email, website, plan: selectedPlan?.plan, billing: selectedPlan?.billing }),
       });
 
       if (!response.ok) {
-        throw new Error("Failed to join waitlist");
+        const data = await response.json().catch(() => ({}));
+        throw new Error(data.error || "Something went wrong. Please try again.");
       }
 
       setSubmitted(true);
       setEmail("");
-    } catch (err) {
-      setError("Something went wrong. Please try again.");
+    } catch (err: any) {
+      setError(err.message || "Something went wrong. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -101,7 +104,7 @@ export function Waitlist() {
 
         <div className="container flex w-full flex-col items-center justify-center max-w-2xl relative z-10">
           <h2 className="py-2 text-center text-4xl sm:text-5xl md:text-[56px] tracking-tight text-[#FFF3F0] mb-6 md:mb-8">
-            Stop duct-taping your onboarding together.
+            Stop duct-taping your client projects together.
           </h2>
           
           <div className="w-full max-w-md flex flex-col items-center mb-6 md:mb-8 min-h-[32px] justify-center">
@@ -119,15 +122,16 @@ export function Waitlist() {
                   defaultValue=""
                 >
                   <option value="" disabled className="bg-[#111] text-white/50">Choose a plan...</option>
+                  <option value="Free-monthly" className="bg-[#111] text-white font-normal">Free · $0</option>
                   <optgroup label="Monthly" className="bg-[#111] text-white/50 font-semibold">
-                    <option value="Starter-monthly" className="bg-[#111] text-white font-normal">Starter · $13/mo</option>
-                    <option value="Pro-monthly" className="bg-[#111] text-white font-normal">Pro · $19/mo</option>
-                    <option value="Agency-monthly" className="bg-[#111] text-white font-normal">Agency · $32/mo</option>
+                    <option value="Starter-monthly" className="bg-[#111] text-white font-normal">Starter · $12/mo</option>
+                    <option value="Pro-monthly" className="bg-[#111] text-white font-normal">Pro · $25/mo</option>
+                    <option value="Agency-monthly" className="bg-[#111] text-white font-normal">Agency · $49/mo</option>
                   </optgroup>
                   <optgroup label="Yearly (2 months free)" className="bg-[#111] text-white/50 font-semibold">
-                    <option value="Starter-yearly" className="bg-[#111] text-white font-normal">Starter · $108/yr</option>
-                    <option value="Pro-yearly" className="bg-[#111] text-white font-normal">Pro · $162/yr</option>
-                    <option value="Agency-yearly" className="bg-[#111] text-white font-normal">Agency · $270/yr</option>
+                    <option value="Starter-yearly" className="bg-[#111] text-white font-normal">Starter · $120/yr</option>
+                    <option value="Pro-yearly" className="bg-[#111] text-white font-normal">Pro · $250/yr</option>
+                    <option value="Agency-yearly" className="bg-[#111] text-white font-normal">Agency · $490/yr</option>
                   </optgroup>
                 </select>
               </div>
@@ -135,14 +139,14 @@ export function Waitlist() {
               <div className="flex flex-col sm:flex-row items-center text-[15px] text-center sm:text-left gap-1 sm:gap-0">
                 <span className="text-[#FFF3F0]">
                   <span className="text-emerald-400 font-bold mr-2">✓</span>
-                  <span className="font-medium">{selectedPlan.plan}</span> · {getLockedRate(selectedPlan.plan, selectedPlan.billing)} locked forever
+                  <span className="font-medium">{selectedPlan.plan}</span> · {getLockedRate(selectedPlan.plan, selectedPlan.billing)}{selectedPlan.plan !== "Free" && " locked forever"}
                 </span>
                 <button 
                   type="button" 
                   onClick={(e) => {
                     e.preventDefault();
                     setSelectedPlan(null);
-                    window.location.hash = "#pricing";
+                    document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' });
                   }}
                   className="text-[#60a5fa] hover:text-white transition-colors underline underline-offset-2 sm:ml-4 text-[13px]"
                 >
@@ -161,11 +165,25 @@ export function Waitlist() {
               </div>
               <h3 className="text-2xl font-semibold text-[#FFF3F0] mb-2 tracking-tight">Spot Claimed! 🎉</h3>
               <p className="text-[#FFF3F0]/70 text-[16px] leading-relaxed">
-                Check your inbox for confirmation. Your exclusive rate of <strong className="text-white font-medium">{getLockedRate(selectedPlan!.plan, selectedPlan!.billing)}</strong> has been locked in.
+                {selectedPlan?.plan === "Free" ? (
+                  <>Check your inbox for confirmation. You're on the list for the <strong className="text-white font-medium">Free</strong> plan.</>
+                ) : (
+                  <>Check your inbox for confirmation. Your waitlist rate of <strong className="text-white font-medium">{getLockedRate(selectedPlan!.plan, selectedPlan!.billing)}</strong> has been locked in.</>
+                )}
               </p>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row w-full max-w-md items-center gap-3 p-1">
+              <input
+                type="text"
+                name="website"
+                value={website}
+                onChange={(e) => setWebsite(e.target.value)}
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+                className="hidden"
+              />
               <input
                 className="h-12 w-full rounded-full border border-white/10 bg-white/5 px-4 md:px-5 font-medium text-white shadow-none ring-0 placeholder:text-white/40 focus:outline-none focus:border-white/20 focus:bg-white/10 transition-all text-center sm:text-left disabled:opacity-50"
                 placeholder="Enter your work email"

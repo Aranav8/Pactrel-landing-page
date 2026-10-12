@@ -5,18 +5,18 @@ export function HowItWorks() {
   const steps = [
     {
       icon: <Link className="w-6 h-6 text-[#FFF3F0]" />,
-      title: "Create a portal and send the link",
-      description: "Set up your proposal, deposit, and intake questions once. Share one branded link.",
+      title: "Create a project and send the link",
+      description: "Set up your proposal, agreement, deposit, and brief questions. Share one branded link.",
     },
     {
       icon: <FileSignature className="w-6 h-6 text-[#FFF3F0]" />,
       title: "Client signs, pays, and briefs you",
-      description: "They review, e-sign, pay the deposit, and fill the brief in one tab, no account needed.",
+      description: "They accept, e-sign, pay your deposit directly, and fill in the brief in one tab, no account needed.",
     },
     {
       icon: <Rocket className="w-6 h-6 text-[#FFF3F0]" />,
-      title: "Start work. Client tracks progress.",
-      description: "Your portal becomes a live project page. Update the status in seconds. Send the final invoice when done.",
+      title: "Run the project. Send the final invoice.",
+      description: "Share files, messages, and deliverables for approval in the same link. When the work is done, send the final invoice from there too.",
     },
   ];
 
@@ -25,7 +25,7 @@ export function HowItWorks() {
       <div className="max-w-6xl w-full flex flex-col">
         <SectionHeader
           badge="How it works"
-          title="From signed to started in three steps."
+          title="From proposal to paid in three steps."
           description="Replace a week of back-and-forth emails with a single, polished workflow."
         />
 

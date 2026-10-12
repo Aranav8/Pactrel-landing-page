@@ -13,34 +13,34 @@ interface TabContent {
 
 const TAB_DATA: TabContent[] = [
   {
-    label: "Sign Contract",
+    label: "Sign Agreement",
     badgeIcon: "✍️",
-    heading: "Legally binding. No printing, no PDFs, no screenshots.",
-    description: "Upload your own contract or use a template. Clients review the scope and sign in one click, timestamped, IP-verified, and stored automatically. Legally binding in the US and EU.",
+    heading: "Legally binding. No printing, no scanning, no screenshots.",
+    description: "Upload your own contract (PDF or Word) or use the built-in wording. Clients type their signature, and Pactrel records the time, IP and a full audit trail. Both sides can download the signed agreement as a PDF.",
     image: "/sign_contract.png",
     accentClass: "from-blue-500/20 to-teal-400/20",
   },
   {
-    label: "Collect Deposit",
+    label: "Get Paid",
     badgeIcon: "💳",
-    heading: "Deposits collected automatically. Before work starts.",
-    description: "Pactrel collects the deposit the moment the contract is signed. No separate invoice, no follow-up. They pay via card or bank transfer. You get notified when it clears. Work starts only when you're covered.",
+    heading: "Paid before work starts. Straight to you.",
+    description: "After signing, the client sees a clear step to pay your deposit by bank transfer or your own payment link (Stripe, PayPal.me, Wise). The money goes straight to you, never through Pactrel. Split big projects into instalments, send the final invoice from the same portal, and mark each payment received. No transaction fees.",
     image: "/deposit_collection.png",
     accentClass: "from-purple-500/20 to-indigo-400/20",
   },
   {
-    label: "Client Intake",
+    label: "Client Brief",
     badgeIcon: "👋",
     heading: "Get everything you need, before the first call.",
-    description: "After payment, clients fill in your custom brief with goals, references, and brand assets all in one place. No more hunting through email threads to find a logo.",
+    description: "After the deposit, clients fill in your custom brief with goals, references, and brand assets all in one place. No more hunting through email threads to find a logo.",
     image: "/client_intake.png",
     accentClass: "from-pink-500/20 to-orange-400/20",
   },
   {
-    label: "Project Tracking",
+    label: "Run the Project",
     badgeIcon: "📊",
-    heading: "Your client always knows what's happening.",
-    description: "Share a live project page that shows exactly where things stand. Add updates in seconds. Clients feel informed without you having to answer 'what's the status?' emails.",
+    heading: "The whole project, in the same link.",
+    description: "After kickoff, the portal becomes the project: files, messages, deliverables your client approves, and a shared calendar. Scope changed? Send a change order they sign. Clients always know where things stand without asking.",
     image: "/project_tracking.png",
     accentClass: "from-emerald-500/20 to-teal-400/20",
   },
@@ -78,8 +78,8 @@ export function Features() {
         <div className="mb-16">
           <SectionHeader
             badge="Core Features"
-            title="From proposal to project in one place."
-            description="Pactrel handles the full client journey so you can skip the admin and get to the work."
+            title="From proposal to final invoice in one place."
+            description="Pactrel handles the whole client journey, from the first proposal to the last payment, so you can skip the admin and get to the work."
           />
         </div>
 

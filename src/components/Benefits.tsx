@@ -5,7 +5,7 @@ export function Benefits() {
   const benefits = [
     {
       label: "Get paid faster",
-      description: "Deposits collected before work starts. Final invoices sent from inside the portal. No more chasing. No more \"I'll send it over later.\" Revenue arrives on time, every time.",
+      description: "Every payment is a clear step in the portal: the deposit before work starts, instalments if you split it, and the final invoice at the end. Clients pay you directly, Pactrel takes no transaction fees, and on Pro automatic reminders do the chasing.",
     },
     {
       label: "Look like the pro you are",
@@ -16,8 +16,8 @@ export function Benefits() {
       description: "A shared progress page means your client knows what's happening without asking you. Fewer \"just checking in\" messages means more deep work hours. That's the real value.",
     },
     {
-      label: "Everything in one place, forever",
-      description: "Contracts, deposits, briefs, files, updates, and invoices are all tied to one project, one link. When a client asks about something six months later, you open one page, not your entire inbox.",
+      label: "Everything in one place",
+      description: "Contracts, payments, briefs, files, messages, approvals, and invoices are all tied to one project, one link. When a client asks about something six months later, you open one page, not your entire inbox.",
     },
   ];
 
@@ -28,7 +28,7 @@ export function Benefits() {
           <SectionHeader
             badge="Benefits"
             title="Focus on the work, not the process"
-            description="Every hour you spend on admin is an hour you're not getting paid for. Pactrel eliminates that entirely."
+            description="Every hour you spend on admin is an hour you're not getting paid for. Pactrel takes most of it off your plate."
           />
         </div>
 

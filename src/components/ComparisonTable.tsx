@@ -7,88 +7,129 @@ export function ComparisonTable() {
 
   const plans = [
     {
+      name: "Free",
+      description: "Send a real portal and see",
+      monthlyPrice: "$0",
+      yearlyPrice: "$0",
+      monthlyOriginal: "",
+      yearlyOriginal: "",
+      badge: "Free plan",
+      cta: "Join the waitlist →",
+      description2: "Proposals, e-signature, deposits, briefs, files and the final invoice, end to end, on up to 3 projects.",
+      highlight: false,
+      yearlyCalc: "",
+      finePrint: "3 projects sent, ever. Shows a Powered by Pactrel badge."
+    },
+    {
       name: "Starter",
-      description: "For solo freelancers",
-      monthlyPrice: "$13",
-      yearlyPrice: "$108",
+      description: "Your whole client list, under your name",
+      monthlyPrice: "$12",
+      yearlyPrice: "$120",
       monthlyOriginal: "$19",
       yearlyOriginal: "$190",
       badge: "Waitlist price",
       cta: "Claim my spot →",
-      description2: "5 active portals, e-signature, deposits, and white-label branding.",
+      description2: "10 active projects and no Pactrel badge. Everything in Free.",
       highlight: false,
-      monthlySave: "Save $6/mo, rate locked at signup, pay at launch",
-      yearlySave: "Save $82 vs launch price",
-      yearlyCalc: "($9/mo · 2 months free)",
+      yearlyCalc: "($10/mo · 2 months free)",
       finePrint: "Rate locked forever. Pay nothing until launch."
     },
     {
       name: "Pro",
-      description: "For growing freelancers",
-      monthlyPrice: "$19",
-      yearlyPrice: "$162",
-      monthlyOriginal: "$29",
-      yearlyOriginal: "$290",
+      description: "Most popular · The admin runs itself",
+      monthlyPrice: "$25",
+      yearlyPrice: "$250",
+      monthlyOriginal: "$39",
+      yearlyOriginal: "$390",
       badge: "Waitlist price",
       cta: "Claim my spot →",
-      description2: "Unlimited portals, email automations, final invoices, and custom domains.",
+      description2: "Unlimited projects, automatic reminders, recurring invoices, change orders, analytics and your own domain.",
       highlight: true,
-      monthlySave: "Save $10/mo, rate locked at signup, pay at launch",
-      yearlySave: "Save $128 vs launch price",
-      yearlyCalc: "($13.50/mo · 2 months free)",
-      copilotCallout: "✦ Copilot charges $149/mo for custom domain alone.",
+      yearlyCalc: "($20.83/mo · 2 months free)",
       finePrint: "Rate locked forever. Pay nothing until launch."
     },
     {
       name: "Agency",
-      description: "For small teams",
-      monthlyPrice: "$32",
-      yearlyPrice: "$270",
-      monthlyOriginal: "$49",
-      yearlyOriginal: "$490",
+      description: "Your team, in one workspace",
+      monthlyPrice: "$49",
+      yearlyPrice: "$490",
+      monthlyOriginal: "$79",
+      yearlyOriginal: "$790",
       badge: "Waitlist price",
       cta: "Claim my spot →",
-      description2: "Everything in Pro plus 3 team seats, priority support, and integrations.",
+      description2: "Everything in Pro plus 3 seats, up to 5 brands, email from your own domain and priority support.",
       highlight: false,
-      monthlySave: "Save $17/mo, rate locked at signup, pay at launch",
-      yearlySave: "Save $220 vs launch price",
-      yearlyCalc: "($22.50/mo · 2 months free)",
+      yearlyCalc: "($40.83/mo · 2 months free)",
       finePrint: "Rate locked forever. Pay nothing until launch."
     },
   ];
 
-  const categories = [
+  const columns = [
+    { key: "free", label: "Free" },
+    { key: "starter", label: "Starter" },
+    { key: "pro", label: "Pro" },
+    { key: "agency", label: "Agency" },
+  ] as const;
+
+  type Value = boolean | string;
+  type Feature = { name: string; description: string; free: Value; starter: Value; pro: Value; agency: Value };
+
+  const categories: { name: string; features: Feature[] }[] = [
     {
-      name: "Core Features",
+      name: "Every project, end to end",
       features: [
         {
-          name: "Active Portals",
-          description: "Number of simultaneous client portals",
+          name: "Projects",
+          description: "Free counts projects sent; paid plans count active ones",
+          free: "3 sent, ever",
+          starter: "10 active",
+          pro: "Unlimited",
+          agency: "Unlimited",
+        },
+        {
+          name: "Proposals + e-signature",
+          description: "Typed signature with timestamp, IP and audit trail. Signed PDF download.",
+          free: true,
+          starter: true,
+          pro: true,
+          agency: true,
+        },
+        {
+          name: "Deposits, payment plans + final invoice",
+          description: "Clear pay-this steps. Clients pay you directly. No transaction fees.",
+          free: true,
+          starter: true,
+          pro: true,
+          agency: true,
+        },
+        {
+          name: "Briefs, files, messages + approvals",
+          description: "Deliverables the client approves, plus a shared project calendar",
+          free: true,
+          starter: true,
+          pro: true,
+          agency: true,
+        },
+        {
+          name: "Storage",
+          description: "For files shared in your portals",
+          free: "512 MB",
+          starter: "5 GB",
+          pro: "50 GB",
+          agency: "200 GB",
+        },
+        {
+          name: "Saved templates",
+          description: "Reuse your proposals and project setups",
           free: "1",
           starter: "5",
           pro: "Unlimited",
           agency: "Unlimited",
         },
         {
-          name: "E-signature + proposals",
-          description: "Built-in, legally binding",
-          free: true,
-          starter: true,
-          pro: true,
-          agency: true,
-        },
-        {
-          name: "Deposit collection",
-          description: "Collected automatically at signing",
+          name: "No \"Powered by Pactrel\" badge",
+          description: "Portals carry only your name",
           free: false,
-          starter: true,
-          pro: true,
-          agency: true,
-        },
-        {
-          name: "White-label branding",
-          description: "Your logo. Your colors. Not ours.",
-          free: true,
           starter: true,
           pro: true,
           agency: true,
@@ -96,44 +137,52 @@ export function ComparisonTable() {
       ],
     },
     {
-      name: "Growth & Automation",
+      name: "Automation & growth",
       features: [
         {
-          name: "Email automations",
-          description: "Auto-reminders for pending signatures and payments",
+          name: "Automatic reminders",
+          description: "Chase clients for you, so you don't have to",
           free: false,
           starter: false,
           pro: true,
           agency: true,
         },
         {
-          name: "Final invoice & payments",
-          description: "Collect the remaining balance at project close",
+          name: "Recurring invoices",
+          description: "Retainers that invoice themselves",
           free: false,
           starter: false,
           pro: true,
           agency: true,
         },
         {
-          name: "Custom domain",
-          description: "Competitors charge up to $149/mo for this",
+          name: "Change orders",
+          description: "Scope, price or timeline changes the client signs",
           free: false,
           starter: false,
           pro: true,
           agency: true,
         },
         {
-          name: "Zapier integration",
-          description: "Connect to 5,000+ other apps",
+          name: "Analytics",
+          description: "Win rate, time to sign, pipeline and payments",
           free: false,
           starter: false,
-          pro: false,
+          pro: true,
+          agency: true,
+        },
+        {
+          name: "Portal on your own domain",
+          description: "e.g. clients.yourstudio.com, set up with a DNS record",
+          free: false,
+          starter: false,
+          pro: true,
           agency: true,
         },
       ],
     },
     {
-      name: "Team & Support",
+      name: "Team & security",
       features: [
         {
           name: "Team seats",
@@ -144,12 +193,44 @@ export function ComparisonTable() {
           agency: "3",
         },
         {
-          name: "Analytics dashboard",
-          description: "Track revenue, client activity, and conversion",
+          name: "Brands",
+          description: "Separate client-facing identities in one workspace",
+          free: "1",
+          starter: "1",
+          pro: "1",
+          agency: "Up to 5",
+        },
+        {
+          name: "Client emails from your domain",
+          description: "Portal emails come from your own address",
           free: false,
           starter: false,
           pro: false,
           agency: true,
+        },
+        {
+          name: "Required 2FA for the team",
+          description: "Everyone in the workspace signs in with two-factor",
+          free: false,
+          starter: false,
+          pro: false,
+          agency: true,
+        },
+        {
+          name: "Per-person analytics",
+          description: "See results for each team member",
+          free: false,
+          starter: false,
+          pro: false,
+          agency: true,
+        },
+        {
+          name: "Security log",
+          description: "A record of sign-ins and account activity",
+          free: false,
+          starter: false,
+          pro: "30 days",
+          agency: "365 days",
         },
         {
           name: "Support",
@@ -163,7 +244,7 @@ export function ComparisonTable() {
     },
   ];
 
-  const renderValue = (val: any) => {
+  const renderValue = (val: Value) => {
     if (typeof val === "boolean") {
       return val ? (
         <div className="inline-flex items-center justify-center gap-2.5 w-full">
@@ -181,13 +262,6 @@ export function ComparisonTable() {
         </div>
       );
     }
-    if (typeof val === "object" && val.style === "purple") {
-      return (
-        <div className="inline-flex items-center justify-center px-3 py-1.5 min-h-[32px] rounded-full text-[11px] font-medium tracking-[0.04em] uppercase text-purple-400 bg-purple-500/10 border border-purple-500/10 whitespace-nowrap">
-          {val.text}
-        </div>
-      );
-    }
     return (
       <span className="text-[15px] text-[#FFF3F0] font-medium">{val}</span>
     );
@@ -202,10 +276,10 @@ export function ComparisonTable() {
             <SectionHeader 
               badge="Pricing"
               title="Simple, flat pricing"
-              description="No per-user fees, no hidden limits. Lock in your rate today. Prices go up permanently at launch. Pay nothing until we're live."
+              description="Flat pricing, no transaction fees. Start on Free, or lock in a waitlist rate on a paid plan today. Prices go up at launch. Pay nothing until we're live."
             />
             <p className="mt-5 text-[14px] text-[#7A7A7A] font-medium tracking-tight">
-              Yearly plan includes 2 months free on top of the locked rate.
+              Yearly plans include 2 months free on top of the locked rate.
             </p>
           </div>
           <div className="inline-flex items-center gap-1.5 p-1.5 mb-2 rounded-full bg-[#0a0a0a] border border-white/5 shadow-sm shrink-0">
@@ -231,7 +305,7 @@ export function ComparisonTable() {
         </div>
 
         {/* Pricing Cards Full Width */}
-        <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+        <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
           {plans.map((plan, idx) => (
             <div key={idx} className="relative h-full z-10 flex flex-col">
               <div
@@ -276,19 +350,23 @@ export function ComparisonTable() {
                 </div>
 
                 <div className="relative z-10 flex flex-col">
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className="text-white/40 line-through text-[20px] font-medium tracking-tight">
-                      {billing === "monthly" ? plan.monthlyOriginal : plan.yearlyOriginal}
-                    </span>
-                    <span className="text-[13px] text-white/40">
-                      {billing === "monthly" ? "/mo" : "/yr"} launch price
-                    </span>
+                  <div className="flex items-center gap-2 mb-1 min-h-[30px]">
+                    {plan.monthlyOriginal && (
+                      <>
+                        <span className="text-white/40 line-through text-[20px] font-medium tracking-tight">
+                          {billing === "monthly" ? plan.monthlyOriginal : plan.yearlyOriginal}
+                        </span>
+                        <span className="text-[13px] text-white/40">
+                          {billing === "monthly" ? "/mo" : "/yr"} launch price
+                        </span>
+                      </>
+                    )}
                   </div>
                   <div className="flex items-end gap-1.5 mb-1.5">
                     <span className="text-[56px] leading-[1.1] tracking-[-0.06em] text-[#FFF3F0] font-medium">
                       {billing === "monthly" ? plan.monthlyPrice : plan.yearlyPrice}
                     </span>
-                    {plan.monthlyPrice !== "Custom" && (
+                    {plan.monthlyPrice !== "$0" && (
                       <span className="text-[15px] text-[#7A7A7A] mb-3 whitespace-nowrap">
                         {billing === "monthly" ? "/mo" : "/yr"}
                       </span>
@@ -296,10 +374,10 @@ export function ComparisonTable() {
                   </div>
                   
                   <span className="text-[14px] font-semibold tracking-wide uppercase text-emerald-400 mb-2">
-                    forever locked
+                    {plan.monthlyPrice === "$0" ? "free plan" : "forever locked"}
                   </span>
                   
-                  {billing === "yearly" && plan.yearlyCalc && (
+                  {billing === "yearly" && plan.yearlyCalc !== "" && (
                     <span className="text-[13px] text-[#7A7A7A] mb-2 font-mono">
                       {plan.yearlyCalc}
                     </span>
@@ -310,19 +388,13 @@ export function ComparisonTable() {
                   {plan.description2}
                 </div>
                 
-                {plan.copilotCallout && (
-                  <div className="relative z-10 pl-4 py-1.5 border-l-2 border-[#e5c1a5]/40 text-[#e5c1a5]/90 text-[13px] leading-relaxed mb-4 italic">
-                    {plan.copilotCallout}
-                  </div>
-                )}
-
                 <div className="relative z-10 mt-auto pt-6 w-full flex flex-col items-center">
                   <a
                     href="#waitlist"
                     onClick={(e) => {
                       e.preventDefault();
                       document.getElementById('waitlist')?.scrollIntoView({ behavior: 'smooth' });
-                      window.dispatchEvent(new CustomEvent('selectPlan', { detail: { plan: plan.name, billing: billing } }));
+                      window.dispatchEvent(new CustomEvent('selectPlan', { detail: { plan: plan.name, billing: plan.name === "Free" ? "monthly" : billing } }));
                     }}
                     className={`w-full min-h-[52px] px-4 rounded-full flex items-center justify-center text-[15px] font-semibold tracking-wide transition-colors inline-flex shadow-lg whitespace-nowrap ${plan.highlight ? "text-white bg-[#2563eb] border border-[#2563eb]/50 hover:bg-[#1d4ed8]" : "text-black bg-[#E5E5E5] border border-transparent hover:bg-white"}`}
                   >
@@ -339,10 +411,10 @@ export function ComparisonTable() {
 
         {/* Feature Matrix Container */}
         <div className="w-full bg-[#0a0a0a] border border-white/5 rounded-3xl p-2 md:p-2.5 overflow-hidden md:overflow-x-auto">
-          <div className="w-full md:min-w-[880px] grid grid-cols-1 md:grid-cols-[minmax(260px,1.2fr)_repeat(3,minmax(220px,1fr))] gap-2 md:gap-3 items-stretch relative">
+          <div className="w-full md:min-w-[1000px] grid grid-cols-1 md:grid-cols-[minmax(240px,1.2fr)_repeat(4,minmax(170px,1fr))] gap-2 md:gap-3 items-stretch relative">
             
             {/* Matrix Column Headers */}
-            <div className="col-span-1 md:col-span-4 grid grid-cols-1 md:grid-cols-subgrid mb-2 md:mb-2">
+            <div className="col-span-1 md:col-span-5 grid grid-cols-1 md:grid-cols-subgrid mb-2 md:mb-2">
                <div className="p-4 md:px-5 flex flex-col justify-end gap-2.5 relative z-10">
                  <div className="text-[21px] text-[#FFF3F0] tracking-tight font-medium">
                    Compare Features
@@ -351,15 +423,15 @@ export function ComparisonTable() {
                    A detailed breakdown of what each plan unlocks.
                  </div>
                </div>
-               <div className="hidden md:flex items-end justify-center pb-4 text-[17px] font-medium text-white/80">Starter</div>
-               <div className="hidden md:flex items-end justify-center pb-4 text-[17px] font-medium text-white/80">Pro</div>
-               <div className="hidden md:flex items-end justify-center pb-4 text-[17px] font-medium text-white/80">Agency</div>
+               {columns.map((col) => (
+                 <div key={col.key} className="hidden md:flex items-end justify-center pb-4 text-[17px] font-medium text-white/80">{col.label}</div>
+               ))}
             </div>
 
             {/* Matrix Data */}
             {categories.map((category, cIdx) => (
-              <div key={cIdx} className="col-span-1 md:col-span-4 grid grid-cols-1 md:grid-cols-subgrid gap-y-2">
-                <div className="col-span-1 md:col-span-4 mt-4 mb-1 z-10">
+              <div key={cIdx} className="col-span-1 md:col-span-5 grid grid-cols-1 md:grid-cols-subgrid gap-y-2">
+                <div className="col-span-1 md:col-span-5 mt-4 mb-1 z-10">
                   <div className="h-11 px-6 flex items-center rounded-full bg-[#111] border border-white/5">
                     <span className="text-[11px] font-medium tracking-[0.04em] uppercase text-[#FFF3F0]/60">
                       {category.name}
@@ -370,7 +442,7 @@ export function ComparisonTable() {
                 {category.features.map((feature, fIdx) => (
                   <div
                     key={fIdx}
-                    className="col-span-1 md:col-span-4 grid grid-cols-1 md:grid-cols-subgrid relative group rounded-2xl md:rounded-none bg-[#111] md:bg-transparent border border-white/5 md:border-transparent mb-2 md:mb-0 pb-2 md:pb-0"
+                    className="col-span-1 md:col-span-5 grid grid-cols-1 md:grid-cols-subgrid relative group rounded-2xl md:rounded-none bg-[#111] md:bg-transparent border border-white/5 md:border-transparent mb-2 md:mb-0 pb-2 md:pb-0"
                   >
                     <div className="min-h-[72px] rounded-t-2xl md:rounded-2xl p-4 md:px-5 flex items-center relative z-10 bg-[#0a0a0a] border-b border-white/5 md:border-transparent md:group-hover:bg-[#111] md:group-hover:border-white/5 transition-colors">
                       <div className="grid gap-1 min-w-0 pr-4">
@@ -383,30 +455,18 @@ export function ComparisonTable() {
                       </div>
                     </div>
 
-                    <div className="md:hidden flex items-center justify-between px-5 py-2.5 text-[13px] border-b border-white/5">
-                      <span className="text-white/50 font-medium">Starter</span>
-                      <div className="flex justify-end">{renderValue(feature.starter)}</div>
-                    </div>
-                    <div className="md:hidden flex items-center justify-between px-5 py-2.5 text-[13px] border-b border-white/5">
-                      <span className="text-white/50 font-medium">Pro</span>
-                      <div className="flex justify-end">{renderValue(feature.pro)}</div>
-                    </div>
-                    <div className="md:hidden flex items-center justify-between px-5 py-2.5 text-[13px]">
-                      <span className="text-white/50 font-medium">Agency</span>
-                      <div className="flex justify-end">{renderValue((feature as any).agency)}</div>
-                    </div>
+                    {columns.map((col, i) => (
+                      <div key={col.key} className={`md:hidden flex items-center justify-between px-5 py-2.5 text-[13px] ${i < columns.length - 1 ? "border-b border-white/5" : ""}`}>
+                        <span className="text-white/50 font-medium">{col.label}</span>
+                        <div className="flex justify-end">{renderValue(feature[col.key])}</div>
+                      </div>
+                    ))}
 
-                    <div className="hidden md:flex min-h-[72px] rounded-2xl p-3 items-center justify-center text-center bg-[#111] border border-transparent group-hover:bg-[#151515] group-hover:border-white/5 transition-colors relative z-10">
-                      {renderValue(feature.starter)}
-                    </div>
-
-                    <div className="hidden md:flex min-h-[72px] rounded-2xl p-3 items-center justify-center text-center bg-[#111] border border-transparent group-hover:bg-[#151515] group-hover:border-white/5 transition-colors relative z-10">
-                      {renderValue(feature.pro)}
-                    </div>
-
-                    <div className="hidden md:flex min-h-[72px] rounded-2xl p-3 items-center justify-center text-center bg-[#111] border border-transparent group-hover:bg-[#151515] group-hover:border-white/5 transition-colors relative z-10">
-                      {renderValue((feature as any).agency)}
-                    </div>
+                    {columns.map((col) => (
+                      <div key={col.key} className="hidden md:flex min-h-[72px] rounded-2xl p-3 items-center justify-center text-center bg-[#111] border border-transparent group-hover:bg-[#151515] group-hover:border-white/5 transition-colors relative z-10">
+                        {renderValue(feature[col.key])}
+                      </div>
+                    ))}
                   </div>
                 ))}
               </div>

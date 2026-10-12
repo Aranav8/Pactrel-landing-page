@@ -1,6 +1,0 @@
-{
-  "name": "Pactrel",
-  "description": "Simple client onboarding portal for freelancers.",
-  "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
-}

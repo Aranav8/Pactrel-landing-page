@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "motion/react";
 function ContactForm({ className = "" }: { className?: string }) {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [website, setWebsite] = useState(""); // honeypot, hidden from real visitors
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [errorMsg, setErrorMsg] = useState("");
 
@@ -20,7 +21,7 @@ function ContactForm({ className = "" }: { className?: string }) {
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, message }),
+        body: JSON.stringify({ email, message, website }),
       });
 
       if (!response.ok) {
@@ -60,6 +61,16 @@ function ContactForm({ className = "" }: { className?: string }) {
         </div>
       ) : (
         <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
+          <input
+            type="text"
+            name="website"
+            value={website}
+            onChange={(e) => setWebsite(e.target.value)}
+            tabIndex={-1}
+            autoComplete="off"
+            aria-hidden="true"
+            className="hidden"
+          />
           <input 
             type="email" 
             placeholder="Your email" 
@@ -72,6 +83,7 @@ function ContactForm({ className = "" }: { className?: string }) {
           <textarea 
             placeholder="How can we help?" 
             rows={3}
+            maxLength={2000}
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             disabled={status === "loading"}
@@ -107,7 +119,7 @@ const faqs = [
   {
     category: "General",
     question: "What is Pactrel and how does it work?",
-    answer: "Pactrel is a client onboarding portal for freelancers and small agencies. You create a project portal, fill in your proposal details, set a deposit amount, and share one branded link with your client. They open it, review the proposal, e-sign the contract, pay the deposit, and submit a brief, all in a single session, without creating an account. You get notified at every step, and the project dashboard stays live throughout the engagement."
+    answer: "Pactrel is a white-label client portal for freelancers and small studios. You create a project, fill in your proposal, set a deposit, and share one branded link with your client. They open it, accept the proposal, e-sign the agreement, pay the deposit, and submit a brief, without creating an account. After kickoff, the same link runs the whole project: files, messages, deliverables they approve, a shared calendar, and the final invoice."
   },
   {
     category: "General",
@@ -117,51 +129,51 @@ const faqs = [
   {
     category: "General",
     question: "Does my client need to create an account?",
-    answer: "No. Your client receives a magic link and opens it in their browser with no signup, no password, no friction. They complete the entire onboarding flow (sign, pay, brief) in a single session. This is a deliberate design choice: we've seen completion rates drop significantly when clients are forced to create accounts before paying."
+    answer: "No. Your client opens your portal link in their browser with no signup and no password. For sensitive steps, like signing, they may be asked for a one-time code sent to their email. They can complete the whole start of the project (sign, pay, brief) in a single session. This is deliberate: every extra login is a reason for a client to stall before paying."
   },
   {
     category: "General",
     question: "Is the e-signature legally binding?",
-    answer: "Yes. Pactrel captures a typed signature, IP address, timestamp, and unique session token for every signing event. This meets the requirements of the US ESIGN Act and EU eIDAS regulation for simple electronic signatures. A full audit trail is stored and exportable per project. For very high-value contracts, we recommend consulting a lawyer, but for typical freelance agreements, Pactrel's e-signature is fully enforceable."
+    answer: "Yes. Pactrel captures a typed signature, IP address, timestamp, and unique session token for every signing event. This meets the requirements of the US ESIGN Act and EU eIDAS regulation for simple electronic signatures. A full audit trail is stored, and the signed agreement can be downloaded as a PDF. For very high-value contracts, we recommend consulting a lawyer, but for typical freelance agreements, Pactrel's e-signature is fully enforceable."
   },
   {
     category: "General",
     question: "How does the deposit payment work?",
-    answer: "After signing the contract, your client is taken directly to the payment step. They can pay by credit card, bank transfer, or ACH. Payments are processed securely and you receive a notification the moment payment clears. Pactrel never holds funds, money goes directly to your account. There are no transaction fees on top of your subscription."
+    answer: "After signing, your client sees a clear step to pay the deposit. They pay you directly, by bank transfer to your account or through a payment link you own (for example your Stripe payment link, PayPal.me, or a Wise request). When the money arrives, you mark the payment as received in Pactrel. Pactrel never processes or holds client money, and there are no transaction fees on top of your subscription. Payment plans and the final invoice work the same way."
   },
   {
     category: "General",
     question: "Can I use my own domain name?",
-    answer: "Yes, on the Pro plan and above. Your client portal can be served from your own subdomain (e.g. clients.yourstudio.com) so your branding is consistent end to end. Setup takes about 5 minutes with a simple DNS record. White-label branding (your logo, your colors, no Pactrel mentions) is included on all plans including Starter."
+    answer: "Yes, on the Pro and Agency plans. Your client portal can be served from your own subdomain (e.g. clients.yourstudio.com) so your branding is consistent end to end. Setup is a single DNS record. From Starter up, the \"Powered by Pactrel\" badge is removed so portals carry only your name. The Free plan shows the badge."
   },
 
   // Pricing & Plans
   {
     category: "Pricing & Plans",
     question: "Is there a free trial?",
-    answer: "Because we are currently in a pre-launch waitlist period, the platform isn't open for trials just yet. By claiming your spot today, you lock in your discounted rate and pay absolutely nothing until we officially launch."
+    answer: "There's no trial because there's a Free plan: send up to 3 projects, end to end, at no cost. Paid plans lift the project limit, remove the Pactrel badge, and add more features. While we're in the waitlist period, claiming a spot on a paid plan locks in the waitlist rate, and you pay nothing until launch."
   },
   {
     category: "Pricing & Plans",
     question: "Can I switch plans later?",
-    answer: "Absolutely. You can upgrade or downgrade at any time. When you upgrade, you're charged the prorated difference for the remainder of the billing period. When you downgrade, the change takes effect at the next billing cycle."
+    answer: "Yes. You can move between plans from your account. If you cancel, you keep your paid plan until the end of the period you've paid for, then move to Free. Projects you've already sent stay live for your clients. A waitlist rate stays with your workspace when you change tiers."
   },
   {
     category: "Pricing & Plans",
     question: "Do you charge per client or per project?",
-    answer: "No. All plans are flat monthly pricing. You pay one price for Pactrel regardless of how many clients you onboard or how many projects you run (within your portal limit). Starter gives you 5 simultaneous portals. Pro and Agency give you unlimited portals."
+    answer: "No. All plans are flat pricing, monthly or yearly, with no per-client fees. The limits are on projects: Free includes 3 projects sent (ever), Starter includes 10 active projects at a time, and Pro and Agency are unlimited."
   },
 
   // Client Experience
   {
     category: "Client Experience",
     question: "What does my client actually see?",
-    answer: "Your client clicks a link and lands on a clean, branded page with your logo and project name. They see the proposal details, sign the contract, pay the deposit, and fill in the intake form, all in one sequential flow. After that, they can return to the same link at any time to check project status, download files, and leave feedback. It feels like a custom client portal you built yourself."
+    answer: "Your client clicks a link and lands on a clean, branded page with your logo and project name. They see the proposal, sign the agreement, pay the deposit, and fill in the brief, all in one sequential flow. After that, they can return to the same link at any time to check progress, message you, download files, approve deliverables, and pay invoices. It feels like a custom client portal you built yourself."
   },
   {
     category: "Client Experience",
     question: "What happens if my client doesn't complete the onboarding?",
-    answer: "Pactrel sends automatic email reminders if a client opens the portal but doesn't complete a step like signing the contract or paying the deposit (Pro and Agency plans). You can also see exactly where a client dropped off in your dashboard and send a manual nudge with one click."
+    answer: "On Pro and Agency, automatic email reminders chase clients who haven't finished a step, like signing the agreement or paying the deposit. On every plan, you can see which step each project is on."
   },
   {
     category: "Client Experience",

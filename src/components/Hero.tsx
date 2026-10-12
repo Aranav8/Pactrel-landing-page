@@ -112,7 +112,7 @@ export function Hero() {
       <div className="relative flex flex-col items-center text-center max-w-4xl px-6 z-10 w-full mt-10">
         <div className="absolute -top-[100px] sm:-top-[110px] md:-top-[90px] lg:-top-6 left-[12%] sm:left-[15%] md:left-[8%] lg:-left-32 flex flex-col items-center gap-0 -rotate-[6deg] md:-rotate-[8deg] lg:-rotate-[10deg] pointer-events-none z-20 scale-[0.6] sm:scale-75 md:scale-[0.85] lg:scale-100 origin-bottom-left opacity-90 md:opacity-100">
           <span className="text-[#e5c1a5] font-mono text-[13px] font-medium tracking-tight max-w-[180px] text-center leading-relaxed">
-            the Dubsado that takes 30 mins to set up, not 2 weeks
+            set up in 30 minutes, not two weeks
           </span>
           <svg 
             width="70" 
@@ -132,7 +132,7 @@ export function Hero() {
         </h1>
 
         <p className="text-[15px] sm:text-[16px] text-white/65 max-w-2xl mb-8 md:mb-12 font-normal text-center mx-auto px-2 md:px-0">
-          Send one link. Your client signs the contract, pays the deposit, and submits their brief without creating an account. Setup takes 30 minutes, not two weeks.
+          Send one link. Your client accepts the proposal, signs the agreement, pays your deposit and sends their brief, then follows the whole project in the same place. No client account needed. Setup takes 30 minutes, not two weeks.
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16 md:mb-24 w-full">
@@ -159,7 +159,7 @@ export function Hero() {
         >
           <img
             src="/hero.png"
-            alt="Hero Interface"
+            alt="Pactrel client portal showing project progress, an activity feed, the next action for the client, shared files and client feedback"
             className="w-full h-auto object-cover"
             decoding="async"
           />
