@@ -38,7 +38,7 @@ export function Footer() {
         </div>
 
         <div className="max-w-5xl w-full pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6 text-sm text-white/40">
-            <p>© Pactrel, Inc., 2026. All rights reserved.</p>
+            <p>© Pactrel, 2026. All rights reserved.</p>
         </div>
     </footer>
   );

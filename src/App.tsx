@@ -6,7 +6,6 @@ import { Problem } from "./components/Problem";
 import { FounderNote } from "./components/FounderNote";
 import { HowItWorks } from "./components/HowItWorks";
 import { Benefits } from "./components/Benefits";
-import { Pricing } from "./components/Pricing";
 import { ComparisonTable } from "./components/ComparisonTable";
 import { FAQ } from "./components/FAQ";
 import { Waitlist } from "./components/Waitlist";

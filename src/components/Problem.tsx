@@ -30,7 +30,7 @@ const items = [
   {
     title: "Tools that cost more than they solve",
     description:
-      "HoneyBook stops at booking. Dubsado takes two weeks to set up. Copilot charges $149/mo for a custom domain. None of them just work.",
+      "Most client tools cover only part of the job, take days to set up, or charge extra for basics like your own domain. You end up paying for several and still gluing them together.",
     className: "lg:col-span-7 md:col-span-6 col-span-12",
     bgClass: "bg-[#0A0A0E] bg-[radial-gradient(ellipse_at_center,rgba(124,58,237,0.08)_0%,rgba(0,0,0,0)_70%)]",
     image: "/prob4.png",
@@ -42,7 +42,7 @@ export function Problem() {
     <section className="w-full bg-black py-24 md:py-32 px-6 flex flex-col items-center justify-center relative overflow-hidden">
       <div className="max-w-[1216px] w-full mb-16 relative z-10">
         <SectionHeader
-          badge="The Problem"
+          badge="Sound familiar?"
           title="Every freelancer knows this feeling."
           description="Four things that are quietly killing your business and your sanity."
         />

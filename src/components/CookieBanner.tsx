@@ -2,12 +2,28 @@ import { useState, useEffect } from "react";
 import { X } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 
+const CLARITY_ID = import.meta.env.VITE_CLARITY_ID as string | undefined;
+
+// Microsoft Clarity only loads after the visitor accepts analytics cookies.
+function loadClarity() {
+  if (!CLARITY_ID || (window as any).clarity) return;
+  (function (c: any, l: Document, a: string, r: string, i: string) {
+    c[a] = c[a] || function (...args: unknown[]) { (c[a].q = c[a].q || []).push(args); };
+    const t = l.createElement(r) as HTMLScriptElement;
+    t.async = true;
+    t.src = "https://www.clarity.ms/tag/" + i;
+    const y = l.getElementsByTagName(r)[0];
+    y.parentNode!.insertBefore(t, y);
+  })(window, document, "clarity", "script", CLARITY_ID);
+}
+
 export function CookieBanner() {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     // Only show if the user hasn't explicitly accepted or declined yet
     const hasConsented = localStorage.getItem("pactrel_cookie_consent");
+    if (hasConsented === "accepted") loadClarity();
     if (!hasConsented) {
       // Add a slight delay before showing it so it doesn't distract immediately on load
       const timer = setTimeout(() => setIsVisible(true), 1500);
@@ -17,14 +33,12 @@ export function CookieBanner() {
 
   const handleAccept = () => {
     localStorage.setItem("pactrel_cookie_consent", "accepted");
-    // If you add PostHog opt-in tracking logic later, you can trigger it here
-    // window.posthog?.opt_in_capturing();
+    loadClarity();
     setIsVisible(false);
   };
 
   const handleDecline = () => {
     localStorage.setItem("pactrel_cookie_consent", "declined");
-    // window.posthog?.opt_out_capturing();
     setIsVisible(false);
   };
 
@@ -44,7 +58,7 @@ export function CookieBanner() {
                 We value your privacy
               </h4>
               <p className="text-white/60 text-[13px] leading-relaxed">
-                We use cookies to enhance your browsing experience, serve personalized content, and analyze our traffic. By clicking "Accept", you consent to our use of cookies.
+                With your consent, we use Microsoft Clarity analytics cookies to see how visitors use this site, including session recordings. Nothing loads unless you click "Accept". See our <a href="/privacy" className="underline underline-offset-2 hover:text-white">Privacy Policy</a>.
               </p>
             </div>
             <button 

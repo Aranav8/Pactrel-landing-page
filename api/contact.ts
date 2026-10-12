@@ -1,71 +1,65 @@
 import { Resend } from "resend";
+import { SENDER_EMAIL, IS_PRODUCTION, escapeHtml, normalizeEmail, isRateLimited, isHoneypotFilled } from "./_lib.js";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
-const SENDER_EMAIL = process.env.RESEND_FROM_EMAIL || "Pactrel <onboarding@resend.dev>";
+
+const MAX_MESSAGE_LENGTH = 2000;
 
 export default async function handler(req: any, res: any) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
-  const { email, message } = req.body || {};
-  
-  if (!email || !message) {
-    return res.status(400).json({ error: "Email and message are required" });
+  const body = req.body || {};
+
+  if (isHoneypotFilled(body)) {
+    return res.status(200).json({ success: true });
+  }
+
+  if (isRateLimited(req)) {
+    return res.status(429).json({ error: "Too many requests. Please try again in a few minutes." });
+  }
+
+  const email = normalizeEmail(body.email);
+  const message = typeof body.message === "string" ? body.message.trim() : "";
+
+  if (!email) {
+    return res.status(400).json({ error: "Please enter a valid email address." });
+  }
+  if (!message) {
+    return res.status(400).json({ error: "Please enter a message." });
+  }
+  if (message.length > MAX_MESSAGE_LENGTH) {
+    return res.status(400).json({ error: `Please keep your message under ${MAX_MESSAGE_LENGTH} characters.` });
+  }
+
+  const apiKey = process.env.RESEND_API_KEY;
+  const toEmail = process.env.WAITLIST_EMAIL_TO;
+
+  if (!apiKey || !toEmail) {
+    if (IS_PRODUCTION) {
+      console.error("Contact form is not configured: RESEND_API_KEY or WAITLIST_EMAIL_TO is missing.");
+      return res.status(500).json({ error: "We couldn't send your message. Please email hello@pactrel.com." });
+    }
+    console.warn("⚠️ Resend env vars missing. Simulating contact form (non-production only) for:", email);
+    return res.status(200).json({ success: true, simulated: true });
   }
 
   try {
-    const apiKey = process.env.RESEND_API_KEY;
-    const toEmail = process.env.WAITLIST_EMAIL_TO;
-    
-    if (!apiKey || !toEmail) {
-       console.warn("⚠️ WAITLIST_EMAIL_TO or RESEND_API_KEY missing. Simulating contact form for:", email);
-       await new Promise(resolve => setTimeout(resolve, 1000));
-       return res.status(200).json({ success: true, simulated: true });
-    }
-
-    const adminEmail = resend.emails.send({
+    // Only the admin inbox receives the message. No confirmation goes to the
+    // typed address, so the form can't be used to send mail to arbitrary inboxes.
+    const { error } = await resend.emails.send({
       from: SENDER_EMAIL,
       to: toEmail,
-      subject: "📬 New Contact Message from Pactrel",
-      html: `<p>You have a new message from the contact form!</p><p>From: <strong>${email}</strong></p><div style="background:#f4f4f4;padding:15px;margin-top:15px;border-radius:8px;">${message.replace(/\n/g, '<br/>')}</div>`,
+      subject: "New contact message from pactrel.com",
+      html: `<p>You have a new message from the contact form.</p><p>From: <strong>${escapeHtml(email)}</strong></p><div style="background:#f4f4f4;padding:15px;margin-top:15px;border-radius:8px;white-space:pre-wrap;">${escapeHtml(message)}</div>`,
       replyTo: email,
     });
-
-    const userEmail = resend.emails.send({
-      from: SENDER_EMAIL,
-      to: email,
-      subject: "We received your message",
-      html: `
-<div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; padding: 40px 20px; background-color: #0a0a0a; color: #FFF3F0; text-align: center;">
-  <div style="max-w: 600px; margin: 0 auto; background-color: #111; padding: 40px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1);">
-    <h1 style="margin-top: 0; color: #fff; font-size: 24px; font-weight: 600;">Message Received</h1>
-    <p style="color: rgba(255,243,240,0.7); font-size: 16px; line-height: 1.6; margin-bottom: 24px;">
-      Thanks for reaching out! We've received your message and will get back to you as soon as possible.
-    </p>
-    <div style="background-color: rgba(255,255,255,0.05); padding: 20px; border-radius: 8px; margin-bottom: 24px; text-align: left;">
-      <p style="margin: 0; color: #e5c1a5; font-size: 14px; font-weight: 500;">Your Message:</p>
-      <p style="margin: 10px 0 0 0; color: #fff; font-size: 15px; font-weight: 400; line-height: 1.5; white-space: pre-wrap;">${message}</p>
-    </div>
-    <hr style="border: none; border-top: 1px solid rgba(255,255,255,0.1); margin-bottom: 20px;" />
-    <p style="color: rgba(255,243,240,0.4); font-size: 12px; margin: 0;">
-      © 2026 Pactrel, Inc.
-    </p>
-  </div>
-</div>
-      `
-    });
-
-    const results = await Promise.allSettled([adminEmail, userEmail]);
-    
-    const adminResult = results[0];
-    if (adminResult.status === 'rejected') {
-      throw new Error(adminResult.reason?.message || "Failed to send contact notification");
-    }
+    if (error) throw new Error(error.message);
 
     return res.status(200).json({ success: true });
   } catch (error: any) {
     console.error("Contact error:", error);
-    return res.status(500).json({ error: error.message || "Failed to process contact submission" });
+    return res.status(500).json({ error: "We couldn't send your message. Please try again or email hello@pactrel.com." });
   }
 }
