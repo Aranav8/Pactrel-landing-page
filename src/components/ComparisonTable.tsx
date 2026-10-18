@@ -46,7 +46,7 @@ export function ComparisonTable() {
       badge: "Founding price",
       cta: "Get started →",
       href: "https://app.pactrel.com/signup",
-      description2: "Unlimited projects, automatic reminders, recurring invoices, change orders, analytics and your own domain.",
+      description2: "Unlimited projects, 2 seats, automatic reminders, recurring invoices, change orders, analytics and your own domain.",
       highlight: true,
       yearlyCalc: "($20.83/mo · 2 months free)",
       finePrint: "Founding price for the first 100 customers, kept while you stay subscribed."
@@ -193,7 +193,7 @@ export function ComparisonTable() {
           description: "Invite a VA, co-founder, or team member",
           free: "1",
           starter: "1",
-          pro: "1",
+          pro: "2",
           agency: "3",
         },
         {
