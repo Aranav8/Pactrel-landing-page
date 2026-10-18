@@ -128,20 +128,19 @@ export function Hero() {
         </div>
 
         <h1 className="text-4xl sm:text-5xl md:text-[56px] text-[#FFF3F0] mb-6 leading-[1.3em] tracking-[-0.04em] font-medium">
-          Stop losing hours to client onboarding chaos.
+          From “yes” to deposit paid, in one link.
         </h1>
 
         <p className="text-[15px] sm:text-[16px] text-white/65 max-w-2xl mb-8 md:mb-12 font-normal text-center mx-auto px-2 md:px-0">
-          Send one link. Your client accepts the proposal, signs the agreement, pays your deposit and sends their brief, then follows the whole project in the same place. No client account needed. Setup takes 30 minutes, not two weeks.
+          Your client accepts the proposal, signs the agreement and pays your deposit straight to you, by bank transfer or your own payment link, in any country. You keep 100% of it: no client account, no fee on your money. Then they follow the whole project in the same place.
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16 md:mb-24 w-full">
           <a 
-            href="#waitlist" 
-            onClick={(e) => { e.preventDefault(); document.getElementById('waitlist')?.scrollIntoView({ behavior: 'smooth' }); }}
+            href="https://app.pactrel.com/signup"
             className="w-full sm:w-auto px-8 py-3 rounded-[20px] bg-[#FAE6E1] text-[#000000] text-[14px] font-semibold hover:bg-[#E8D5CC] transition-colors inline-block text-center"
           >
-            Claim my spot
+            Start free
           </a>
           <a
             href="#how-it-works"

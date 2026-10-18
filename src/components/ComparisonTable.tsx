@@ -14,7 +14,8 @@ export function ComparisonTable() {
       monthlyOriginal: "",
       yearlyOriginal: "",
       badge: "Free plan",
-      cta: "Join the waitlist →",
+      cta: "Start free →",
+      href: "https://app.pactrel.com/signup",
       description2: "Proposals, e-signature, deposits, briefs, files and the final invoice, end to end, on up to 3 projects.",
       highlight: false,
       yearlyCalc: "",
@@ -27,12 +28,13 @@ export function ComparisonTable() {
       yearlyPrice: "$120",
       monthlyOriginal: "$19",
       yearlyOriginal: "$190",
-      badge: "Waitlist price",
-      cta: "Claim my spot →",
+      badge: "Founding price",
+      cta: "Get started →",
+      href: "https://app.pactrel.com/signup",
       description2: "10 active projects and no Pactrel badge. Everything in Free.",
       highlight: false,
       yearlyCalc: "($10/mo · 2 months free)",
-      finePrint: "Rate locked forever. Pay nothing until launch."
+      finePrint: "Founding price for the first 100 customers, kept while you stay subscribed."
     },
     {
       name: "Pro",
@@ -41,12 +43,13 @@ export function ComparisonTable() {
       yearlyPrice: "$250",
       monthlyOriginal: "$39",
       yearlyOriginal: "$390",
-      badge: "Waitlist price",
-      cta: "Claim my spot →",
+      badge: "Founding price",
+      cta: "Get started →",
+      href: "https://app.pactrel.com/signup",
       description2: "Unlimited projects, automatic reminders, recurring invoices, change orders, analytics and your own domain.",
       highlight: true,
       yearlyCalc: "($20.83/mo · 2 months free)",
-      finePrint: "Rate locked forever. Pay nothing until launch."
+      finePrint: "Founding price for the first 100 customers, kept while you stay subscribed."
     },
     {
       name: "Agency",
@@ -55,12 +58,13 @@ export function ComparisonTable() {
       yearlyPrice: "$490",
       monthlyOriginal: "$79",
       yearlyOriginal: "$790",
-      badge: "Waitlist price",
-      cta: "Claim my spot →",
+      badge: "By request",
+      cta: "Talk to us →",
+      href: "mailto:hello@pactrel.com?subject=Pactrel%20Agency",
       description2: "Everything in Pro plus 3 seats, up to 5 brands, email from your own domain and priority support.",
       highlight: false,
       yearlyCalc: "($40.83/mo · 2 months free)",
-      finePrint: "Rate locked forever. Pay nothing until launch."
+      finePrint: "Set up with you by hand for now. Founding price applies."
     },
   ];
 
@@ -276,7 +280,7 @@ export function ComparisonTable() {
             <SectionHeader 
               badge="Pricing"
               title="Simple, flat pricing"
-              description="Flat pricing, no transaction fees. Start on Free, or lock in a waitlist rate on a paid plan today. Prices go up at launch. Pay nothing until we're live."
+              description="Flat pricing, no transaction fees. Start on Free with no card. The first 100 paying customers get the founding price, and keep it for as long as they stay subscribed."
             />
             <p className="mt-5 text-[14px] text-[#7A7A7A] font-medium tracking-tight">
               Yearly plans include 2 months free on top of the locked rate.
@@ -390,12 +394,7 @@ export function ComparisonTable() {
                 
                 <div className="relative z-10 mt-auto pt-6 w-full flex flex-col items-center">
                   <a
-                    href="#waitlist"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      document.getElementById('waitlist')?.scrollIntoView({ behavior: 'smooth' });
-                      window.dispatchEvent(new CustomEvent('selectPlan', { detail: { plan: plan.name, billing: plan.name === "Free" ? "monthly" : billing } }));
-                    }}
+                    href={plan.href}
                     className={`w-full min-h-[52px] px-4 rounded-full flex items-center justify-center text-[15px] font-semibold tracking-wide transition-colors inline-flex shadow-lg whitespace-nowrap ${plan.highlight ? "text-white bg-[#2563eb] border border-[#2563eb]/50 hover:bg-[#1d4ed8]" : "text-black bg-[#E5E5E5] border border-transparent hover:bg-white"}`}
                   >
                     {plan.cta}

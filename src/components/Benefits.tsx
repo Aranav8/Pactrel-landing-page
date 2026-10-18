@@ -5,7 +5,7 @@ export function Benefits() {
   const benefits = [
     {
       label: "Get paid faster",
-      description: "Every payment is a clear step in the portal: the deposit before work starts, instalments if you split it, and the final invoice at the end. Clients pay you directly, Pactrel takes no transaction fees, and on Pro automatic reminders do the chasing.",
+      description: "Every payment is a clear step in the portal: the deposit before work starts, instalments if you split it, and the final invoice at the end. Clients pay you directly, Pactrel takes no transaction fees, and from Starter up, automatic reminders do the chasing.",
     },
     {
       label: "Look like the pro you are",

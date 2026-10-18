@@ -1,5 +1,5 @@
 // Update LAST_UPDATED whenever the text below changes.
-const LAST_UPDATED = "October 12, 2026";
+const LAST_UPDATED = "October 18, 2026";
 
 const h2 = "text-2xl font-medium text-white pt-4";
 const h3 = "text-lg font-medium text-white";
@@ -26,7 +26,7 @@ export function PrivacyPolicy() {
             <li><strong>Their clients</strong> use the portals a customer sends them, without creating an account. For the client data inside a portal (names, emails, briefs, files, messages, signatures), the <strong>customer is the controller</strong> and Pactrel is the <strong>processor</strong>, handling that data on the customer's behalf and following their instructions.</li>
           </ul>
           <p>
-            If you are a client and want to access, correct or delete your information in a portal, please contact the freelancer or studio who sent it to you. We will help them respond. Business customers who need data processing terms can contact us at hello@pactrel.com.
+            If you are a client and want to access, correct or delete your information in a portal, please contact the freelancer or studio who sent it to you. We will help them respond. Our data processing terms for customers are in our <a href="/dpa" className="underline underline-offset-2 hover:text-white">Data Processing Agreement</a>.
           </p>
 
           <h2 className={h2}>2. Data we collect about customers</h2>
@@ -92,7 +92,7 @@ export function PrivacyPolicy() {
           <ul className={list}>
             <li><strong>Vercel:</strong> hosting for the website and app.</li>
             <li><strong>Supabase:</strong> database, authentication and file storage.</li>
-            <li><strong>Resend:</strong> email delivery and the waitlist contact list.</li>
+            <li><strong>Resend:</strong> email delivery.</li>
             <li><strong>Upstash:</strong> rate limiting.</li>
             <li><strong>Sentry:</strong> error monitoring in the app.</li>
             <li><strong>PostHog:</strong> product analytics in the app.</li>
