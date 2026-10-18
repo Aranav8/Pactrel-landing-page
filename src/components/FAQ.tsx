@@ -134,7 +134,7 @@ const faqs = [
   {
     category: "General",
     question: "Is the e-signature legally binding?",
-    answer: "Yes. Pactrel captures a typed signature, IP address, timestamp, and unique session token for every signing event. This meets the requirements of the US ESIGN Act and EU eIDAS regulation for simple electronic signatures. A full audit trail is stored, and the signed agreement can be downloaded as a PDF. For very high-value contracts, we recommend consulting a lawyer, but for typical freelance agreements, Pactrel's e-signature is fully enforceable."
+    answer: "For a typical freelance service agreement, generally yes. Pactrel records the typed or drawn signature, the signer's consent, the time, the IP address and a fingerprint of the exact text signed, and both sides get the signed agreement as a PDF. That is a simple electronic signature, which the US ESIGN Act and the EU's eIDAS regulation recognise for most commercial contracts. Some countries treat it as weaker evidence than a certified digital signature (India, for example), and some documents can't be signed electronically at all, such as property transfers, powers of attorney, wills and trusts. Use Pactrel for service agreements, and for anything unusual or high-value, ask a lawyer."
   },
   {
     category: "General",
@@ -151,12 +151,12 @@ const faqs = [
   {
     category: "Pricing & Plans",
     question: "Is there a free trial?",
-    answer: "There's no trial because there's a Free plan: send up to 3 projects, end to end, at no cost. Paid plans lift the project limit, remove the Pactrel badge, and add more features. While we're in the waitlist period, claiming a spot on a paid plan locks in the waitlist rate, and you pay nothing until launch."
+    answer: "There's no trial because there's a Free plan: send up to 3 projects, end to end, at no cost. Paid plans lift the project limit, remove the Pactrel badge, and add more features. The first 100 paying customers get the founding price, and keep it for as long as they stay subscribed."
   },
   {
     category: "Pricing & Plans",
     question: "Can I switch plans later?",
-    answer: "Yes. You can move between plans from your account. If you cancel, you keep your paid plan until the end of the period you've paid for, then move to Free. Projects you've already sent stay live for your clients. A waitlist rate stays with your workspace when you change tiers."
+    answer: "Yes. You can move between plans from your account. If you cancel, you keep your paid plan until the end of the period you've paid for, then move to Free. Projects you've already sent stay live for your clients. A founding price stays with your workspace when you change plans, and you can pause instead of cancelling to keep it."
   },
   {
     category: "Pricing & Plans",
@@ -173,7 +173,7 @@ const faqs = [
   {
     category: "Client Experience",
     question: "What happens if my client doesn't complete the onboarding?",
-    answer: "On Pro and Agency, automatic email reminders chase clients who haven't finished a step, like signing the agreement or paying the deposit. On every plan, you can see which step each project is on."
+    answer: "From Starter up, automatic email reminders chase clients who haven't finished a step, like signing the agreement or paying the deposit. On every plan, you can see which step each project is on."
   },
   {
     category: "Client Experience",

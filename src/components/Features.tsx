@@ -15,7 +15,7 @@ const TAB_DATA: TabContent[] = [
   {
     label: "Sign Agreement",
     badgeIcon: "✍️",
-    heading: "Legally binding. No printing, no scanning, no screenshots.",
+    heading: "Signed online, with a full audit trail. No printing, no scanning.",
     description: "Upload your own contract (PDF or Word) or use the built-in wording. Clients type their signature, and Pactrel records the time, IP and a full audit trail. Both sides can download the signed agreement as a PDF.",
     image: "/sign_contract.png",
     accentClass: "from-blue-500/20 to-teal-400/20",

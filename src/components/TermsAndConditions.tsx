@@ -1,5 +1,5 @@
 // Update LAST_UPDATED whenever the text below changes.
-const LAST_UPDATED = "October 12, 2026";
+const LAST_UPDATED = "October 18, 2026";
 
 const h2 = "text-2xl font-medium text-white pt-4";
 const list = "list-disc pl-5 space-y-2";
@@ -59,7 +59,7 @@ export function TermsAndConditions() {
             We still recommend keeping your own copies of important files and agreements. You can export your data at any time (see section 11).
           </p>
           <p>
-            <strong>Waitlist pricing.</strong> If you joined the waitlist and subscribed at a waitlist price, that price belongs to the workspace you subscribed with. It stays with that workspace when you change between paid plans (you pay the waitlist price for the new plan), and when you cancel and later resubscribe. It does not apply to any other workspace.
+            <strong>Founding price.</strong> The first customers to subscribe (the number is shown on the pricing page and in the app) pay a lower founding price. It belongs to the workspace you subscribed with and stays with that workspace while it stays subscribed, including when you change between paid plans (you pay the founding price for the new plan) and while your subscription is paused. It does not apply to any other workspace.
           </p>
 
           <h2 className={h2}>6. Payments Between You and Your Clients</h2>
@@ -77,6 +77,7 @@ export function TermsAndConditions() {
           <ul className={list}>
             <li>You are responsible for the contents of the proposals, agreements and other documents you send, whether you upload your own or use wording Pactrel provides.</li>
             <li>We do not guarantee the enforceability or legal validity of any agreement signed through the Service. You should seek your own legal advice.</li>
+            <li>Signing in Pactrel is a simple electronic signature, meant for service agreements between businesses and their clients. Do not use it for documents that the law where you or your client are requires to be signed on paper or with a certified digital signature (in many countries, for example, property transfers, powers of attorney, wills and trusts).</li>
             <li>We keep a record of each signature as described in our <a href="/privacy" className="underline underline-offset-2 hover:text-white">Privacy Policy</a>, including after you or your client stop using Pactrel.</li>
           </ul>
 
@@ -85,7 +86,7 @@ export function TermsAndConditions() {
             Your clients use portals without creating an account. Access is through the portal link, and a one-time code sent to the client's email may be required for sensitive steps. When a client signs in a portal, they are first shown a consent disclosure explaining that they are agreeing to complete the agreement electronically, what record is kept, and how to ask you for a paper copy or another way to sign. Signing in a portal is governed by that disclosure as shown at the time of signing.
           </p>
           <p>
-            You are responsible for your clients' personal data that you collect through Pactrel, including having a lawful basis to collect and use it and giving your clients any notices the law requires. We handle that data on your behalf as described in our Privacy Policy. You are also responsible for your clients' use of the portals you send them.
+            You are responsible for your clients' personal data that you collect through Pactrel, including having a lawful basis to collect and use it and giving your clients any notices the law requires. We handle that data on your behalf as described in our Privacy Policy and our <a href="/dpa" className="underline underline-offset-2 hover:text-white">Data Processing Agreement</a>, which is part of these Terms. You are also responsible for your clients' use of the portals you send them.
           </p>
 
           <h2 className={h2}>9. Acceptable Use</h2>

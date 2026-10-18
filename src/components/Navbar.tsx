@@ -59,15 +59,15 @@ export function Navbar() {
           </div>
 
           <div className="flex items-center gap-4 hidden md:flex">
-            <a href="#waitlist" onClick={(e) => handleNavClick(e, 'waitlist')} className="text-[13px] font-medium px-5 py-2.5 text-white transition-all rounded-full border border-white/10 bg-black/20 backdrop-blur-md hover:bg-black/40 hover:border-white/20 shadow-lg">
-              Claim my spot
+            <a href="https://app.pactrel.com/signup" className="text-[13px] font-medium px-5 py-2.5 text-white transition-all rounded-full border border-white/10 bg-black/20 backdrop-blur-md hover:bg-black/40 hover:border-white/20 shadow-lg">
+              Start free
             </a>
           </div>
 
           {/* Mobile nav placeholder */}
           <div className="md:hidden flex items-center">
-            <a href="#waitlist" onClick={(e) => handleNavClick(e, 'waitlist')} className="text-sm font-medium px-4 py-2 bg-white text-black rounded-full hover:bg-white/90">
-              Claim my spot
+            <a href="https://app.pactrel.com/signup" className="text-sm font-medium px-4 py-2 bg-white text-black rounded-full hover:bg-white/90">
+              Start free
             </a>
           </div>
         </div>
