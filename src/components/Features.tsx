@@ -40,7 +40,7 @@ const TAB_DATA: TabContent[] = [
     label: "Run the Project",
     badgeIcon: "📊",
     heading: "The whole project, in the same link.",
-    description: "After kickoff, the portal becomes the project: files, messages, deliverables your client approves, and a shared calendar. Scope changed? Send a change order they sign. Clients always know where things stand without asking.",
+    description: "After kickoff, the portal becomes the project: files, messages, deliverables your client approves, and a shared calendar. Scope changed? From Starter up, send a change order they sign. Clients always know where things stand without asking.",
     image: "/project_tracking.png",
     accentClass: "from-emerald-500/20 to-teal-400/20",
   },

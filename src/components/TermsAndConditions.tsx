@@ -31,7 +31,7 @@ export function TermsAndConditions() {
             You must be at least 18 years old, and able to form a binding contract, to create an account. You must provide accurate, complete and current information, and keep it up to date.
           </p>
           <p>
-            You can sign in with a password or with Google, and you can turn on two-factor authentication (on the Agency plan, a workspace owner can require it for the team). You are responsible for keeping your sign-in details secure, for everything that happens under your account, and for the actions of team members you invite to your workspace. Tell us at hello@pactrel.com straight away if you think your account has been compromised.
+            You can sign in with a password or with Google, and you can turn on two-factor authentication (on the Pro and Agency plans, a workspace owner can require it for the team). You are responsible for keeping your sign-in details secure, for everything that happens under your account, and for the actions of team members you invite to your workspace. Tell us at hello@pactrel.com straight away if you think your account has been compromised.
           </p>
 
           <h2 className={h2}>4. Plans and Limits</h2>
