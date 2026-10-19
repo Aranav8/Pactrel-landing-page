@@ -1,4 +1,4 @@
-import { useRef, useCallback } from "react";
+import { useRef, useCallback, useState } from "react";
 import {
   motion,
   useScroll,
@@ -8,8 +8,16 @@ import {
   useInView,
 } from "motion/react";
 import { GrainGradient } from "@paper-design/shaders-react";
+import { HandText, ArrowSweep } from "./ui/Hand";
+import { signupLinkProps } from "../lib/links";
+
+// Drop the files into /public with these names
+const LAUNCH_VIDEO = "/launch.mp4";
+const LAUNCH_POSTER = "/launch-poster.jpg";
 
 export function Hero() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [playing, setPlaying] = useState(false);
   const containerRef = useRef<HTMLElement>(null);
   const rectRef = useRef<DOMRect | null>(null);
   const { scrollYProgress } = useScroll({
@@ -51,9 +59,6 @@ export function Hero() {
   // Optimized separate motion values for native Framer Motion styling
   const midX = useTransform(smoothMouseX, (v) => v * 20);
   const foreX = useTransform(smoothMouseX, (v) => v * -10);
-  const mockupX = useTransform(smoothMouseX, (v) => v * -5);
-  const mockupRotateX = useTransform(smoothMouseY, (v) => v * -10);
-  const mockupRotateY = useTransform(smoothMouseX, (v) => v * 10);
 
   return (
     <section
@@ -110,60 +115,74 @@ export function Hero() {
       `}</style>
 
       <div className="relative flex flex-col items-center text-center max-w-4xl px-6 z-10 w-full mt-10">
-        <div className="absolute -top-[100px] sm:-top-[110px] md:-top-[90px] lg:-top-6 left-[12%] sm:left-[15%] md:left-[8%] lg:-left-32 flex flex-col items-center gap-0 -rotate-[6deg] md:-rotate-[8deg] lg:-rotate-[10deg] pointer-events-none z-20 scale-[0.6] sm:scale-75 md:scale-[0.85] lg:scale-100 origin-bottom-left opacity-90 md:opacity-100">
-          <span className="text-[#e5c1a5] font-mono text-[13px] font-medium tracking-tight max-w-[180px] text-center leading-relaxed">
-            set up in 30 minutes, not two weeks
-          </span>
-          <svg 
-            width="70" 
-            height="70" 
-            viewBox="0 0 100 100" 
-            fill="none" 
-            xmlns="http://www.w3.org/2000/svg" 
-            className="text-[#e5c1a5] translate-x-12 md:translate-x-20 lg:translate-x-24 translate-y-[-15px] md:translate-y-[-5px]"
-          >
-            <path d="M 10 20 Q 70 -10, 85 90" stroke="currentColor" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
-            <path d="M 65 75 L 85 90 L 95 65" stroke="currentColor" strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
+        {/* Small screens: annotation sits above the headline, no arrow */}
+        <HandText className="lg:hidden mb-3 text-[20px] leading-none -rotate-2">
+          set up in 30 minutes, not two weeks
+        </HandText>
+
+        <div className="relative inline-block mb-6">
+          {/* Large screens: hand-drawn note to the left, arrow pointing at the headline */}
+          <div className="hidden lg:flex absolute right-full -top-16 mr-1 flex-col items-end pointer-events-none z-20">
+            <HandText className="text-[22px] leading-[1.05] w-[170px] text-left -rotate-[4deg]">
+              set up in 30 minutes, not two weeks
+            </HandText>
+            <ArrowSweep width={80} className="text-[#e5c1a5] -mt-0.5" />
+          </div>
+
+          <h1 className="text-4xl sm:text-5xl md:text-[56px] text-[#FFF3F0] leading-[1.1] tracking-[-0.04em] font-medium text-balance">
+            From “yes” to deposit paid,<br className="hidden sm:block" /> in one link.
+          </h1>
         </div>
 
-        <h1 className="text-4xl sm:text-5xl md:text-[56px] text-[#FFF3F0] mb-6 leading-[1.3em] tracking-[-0.04em] font-medium">
-          From “yes” to deposit paid, in one link.
-        </h1>
-
-        <p className="text-[15px] sm:text-[16px] text-white/65 max-w-2xl mb-8 md:mb-12 font-normal text-center mx-auto px-2 md:px-0">
-          Your client accepts the proposal, signs the agreement and pays your deposit straight to you, by bank transfer or your own payment link, in any country. You keep 100% of it: no client account, no fee on your money. Then they follow the whole project in the same place.
+        <p className="text-[15px] sm:text-[17px] text-white/65 max-w-[720px] mb-8 md:mb-12 font-normal text-center text-balance mx-auto px-2 md:px-0 leading-relaxed">
+          Your client accepts, signs, pays the deposit and books the kickoff. No login needed. The money goes straight to you, and the same portal runs the project to the final invoice.
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16 md:mb-24 w-full">
           <a 
-            href="https://app.pactrel.com/signup"
-            className="w-full sm:w-auto px-8 py-3 rounded-[20px] bg-[#FAE6E1] text-[#000000] text-[14px] font-semibold hover:bg-[#E8D5CC] transition-colors inline-block text-center"
+            {...signupLinkProps()}
+            className="w-full sm:w-auto px-8 py-3 rounded-[20px] bg-[#2563eb] text-white text-[14px] font-semibold hover:bg-[#1d4ed8] transition-colors inline-block text-center"
           >
             Start free
           </a>
           <a
             href="#how-it-works"
             onClick={(e) => { e.preventDefault(); document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' }); }}
-            className="w-full sm:w-auto px-6 py-3 rounded-[20px] border border-white/20 bg-transparent flex items-center justify-center gap-2 text-white text-[14px] font-semibold hover:bg-white/10 transition-colors"
+            className="w-full sm:w-auto px-6 py-3 rounded-[20px] border border-[#2563eb]/60 bg-transparent flex items-center justify-center gap-2 text-white text-[14px] font-semibold hover:bg-[#2563eb]/15 hover:border-[#2563eb] transition-colors"
           >
             See how it works ↓
           </a>
         </div>
 
-        {/* Hero Mockup */}
+        {/* Launch video: click to play, with sound and controls */}
         <motion.div
-          style={{ y: yMockup, x: mockupX, rotateX: mockupRotateX, rotateY: mockupRotateY, willChange: "transform" }}
-          className="w-full max-w-[960px] rounded-t-[12px] shadow-2xl relative overflow-hidden z-20 border-t border-l border-r border-[#171717]"
+          style={{ y: yMockup, willChange: "transform" }}
+          className="w-full max-w-[960px] aspect-video rounded-[16px] shadow-2xl relative overflow-hidden z-20 border border-white/10 bg-[#0A0A0A]"
         >
-          <img
-            src="/hero.png"
-            alt="Pactrel client portal showing project progress, an activity feed, the next action for the client, shared files and client feedback"
-            className="w-full h-auto object-cover"
-            decoding="async"
+          <video
+            ref={videoRef}
+            src={LAUNCH_VIDEO}
+            poster={LAUNCH_POSTER}
+            controls={playing}
+            playsInline
+            preload="metadata"
+            onEnded={() => setPlaying(false)}
+            className="w-full h-full object-cover"
           />
-          {/* Fade over the mockup bottom so it fades into darkness */}
-          <div className="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t from-[#000000] via-[#000000]/80 to-transparent pointer-events-none z-0" />
+          {!playing && (
+            <button
+              type="button"
+              onClick={() => { setPlaying(true); videoRef.current?.play(); }}
+              aria-label="Play the Pactrel launch video"
+              className="group absolute inset-0 flex items-center justify-center cursor-pointer"
+            >
+              <span className="w-20 h-20 rounded-full bg-[#2563eb] flex items-center justify-center shadow-[0_0_60px_rgba(37,99,235,0.5)] group-hover:scale-105 group-hover:bg-[#1d4ed8] transition-transform">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="white" aria-hidden="true" className="ml-1">
+                  <path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z" />
+                </svg>
+              </span>
+            </button>
+          )}
         </motion.div>
       </div>
     </section>

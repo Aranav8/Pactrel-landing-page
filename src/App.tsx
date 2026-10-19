@@ -8,6 +8,7 @@ import { HowItWorks } from "./components/HowItWorks";
 import { Benefits } from "./components/Benefits";
 import { ComparisonTable } from "./components/ComparisonTable";
 import { FAQ } from "./components/FAQ";
+import { FinalCTA } from "./components/FinalCTA";
 import { Footer } from "./components/Footer";
 import { MouseGlow } from "./components/ui/MouseGlow";
 import { CookieBanner } from "./components/CookieBanner";
@@ -39,6 +40,7 @@ export default function App() {
           {/* Pricing & Comparison */}
           <ComparisonTable />
           <FAQ />
+          <FinalCTA />
         </main>
       ) : path === "/privacy" ? (
         <PrivacyPolicy />

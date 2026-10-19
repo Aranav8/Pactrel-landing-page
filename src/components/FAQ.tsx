@@ -119,7 +119,7 @@ const faqs = [
   {
     category: "General",
     question: "What is Pactrel and how does it work?",
-    answer: "Pactrel is a white-label client portal for freelancers and small studios. You create a project, fill in your proposal, set a deposit, and share one branded link with your client. They open it, accept the proposal, e-sign the agreement, pay the deposit, and submit a brief, without creating an account. After kickoff, the same link runs the whole project: files, messages, deliverables they approve, a shared calendar, and the final invoice."
+    answer: "Pactrel is a white-label client portal for freelancers and small studios. You create a project, fill in your proposal, set a deposit, and Pactrel emails your client a branded invite. From one portal they accept the proposal, e-sign the agreement, pay the deposit, submit the brief and book the kickoff call, without creating an account. After kickoff, the same portal runs the whole project: updates, files, messages, deliverables they approve, a shared calendar, and the final invoice."
   },
   {
     category: "General",
@@ -129,7 +129,12 @@ const faqs = [
   {
     category: "General",
     question: "Does my client need to create an account?",
-    answer: "No. Your client opens your portal link in their browser with no signup and no password. For sensitive steps, like signing, they may be asked for a one-time code sent to their email. They can complete the whole start of the project (sign, pay, brief) in a single session. This is deliberate: every extra login is a reason for a client to stall before paying."
+    answer: "No. There's no signup and no password. Your client presses the button in their invite email and their browser is signed in to the portal, staying signed in for 30 days of use. On a new device, a one-time code sent to their email gets them back in. They can complete the whole start of the project (accept, sign, pay, brief, kickoff) in a single sitting. This is deliberate: every extra login is a reason for a client to stall before paying."
+  },
+  {
+    category: "General",
+    question: "Can I sign or approve on my client's behalf?",
+    answer: "No, and that's on purpose. You never get a working copy of your client's portal: you see a read-only preview of it instead. Only someone who has proved they own the client's email address can accept the proposal, sign the agreement, sign a change order or approve a deliverable. That's what makes the signature and the approval trail worth something if there's ever a dispute."
   },
   {
     category: "General",
@@ -168,17 +173,22 @@ const faqs = [
   {
     category: "Client Experience",
     question: "What does my client actually see?",
-    answer: "Your client clicks a link and lands on a clean, branded page with your logo and project name. They see the proposal, sign the agreement, pay the deposit, and fill in the brief, all in one sequential flow. After that, they can return to the same link at any time to check progress, message you, download files, approve deliverables, and pay invoices. It feels like a custom client portal you built yourself."
+    answer: "A clean page with your logo and the project name, never a Pactrel dashboard. They go through the proposal (ticking any optional extras you offered, with the price updating as they go), sign the agreement, pay the deposit, fill in the brief and book the kickoff call, one step at a time. After that, the portal shows whose turn it is and what's next. They come back any time to see updates, message you, share files, approve deliverables and pay invoices."
+  },
+  {
+    category: "Client Experience",
+    question: "Can more than one person on the client's side use the portal?",
+    answer: "Yes. Your main client contact can invite colleagues, such as a co-founder who signs or a marketing lead who reviews the work, and each of them signs in with their own email. Every plan includes at least one extra person per portal; the comparison table above shows the limit on each plan."
   },
   {
     category: "Client Experience",
     question: "What happens if my client doesn't complete the onboarding?",
-    answer: "From Starter up, automatic email reminders chase clients who haven't finished a step, like signing the agreement or paying the deposit. On every plan, you can see which step each project is on."
+    answer: "From Starter up, automatic email reminders chase clients who haven't finished a step, like signing the agreement or paying an invoice. On every plan, you get an email when your client first opens their portal, and you can see which step each project is on."
   },
   {
     category: "Client Experience",
     question: "Can my client upload files?",
-    answer: "Yes. After submitting the intake form, clients can upload brand assets, references, and any other files directly to the project portal. You can also upload deliverables for them to download. All files are stored per project and accessible at any time through the shared dashboard."
+    answer: "Yes. In the brief, clients can upload brand assets and references, or paste a Google Drive or Dropbox link for big folders. During the project they can share more files, and you can upload deliverables for them to download and approve. Everything is stored per project and stays in the portal for both of you."
   }
 ];
 

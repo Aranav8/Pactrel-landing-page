@@ -40,7 +40,7 @@ export function Intro() {
             style={{ opacity: para1Opacity }}
             className="text-2xl sm:text-3xl md:text-[32px] font-medium text-white/90 leading-[1.3] tracking-tight max-w-5xl transition-colors duration-200"
           >
-            Pactrel replaces that chaos with a single branded link. Your client reviews the proposal, signs, pays your deposit, and submits a brief in one sitting. Then the same link runs the project: files, messages, approvals, and the final invoice. No logins. No passwords. No back-and-forth.
+            Pactrel replaces that chaos with one branded portal. Your client reviews the proposal, signs, pays your deposit, fills in the brief and picks a kickoff time, in one sitting. Then the same portal runs the project: updates, files, messages, approvals and the final invoice. No passwords. No new app to learn. No back-and-forth.
           </motion.p>
           <motion.p 
             style={{ opacity: para2Opacity }}

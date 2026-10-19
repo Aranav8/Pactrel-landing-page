@@ -9,15 +9,15 @@ export function Benefits() {
     },
     {
       label: "Look like the pro you are",
-      description: "Your client's first experience is a clean, branded portal with your logo, not a chain of emails from three different apps. First impressions convert. A professional onboarding flow signals a professional outcome.",
+      description: "Your client's first experience is a clean portal with your logo and your name on it, not a chain of emails from three different apps. A professional start tells them to expect a professional finish.",
     },
     {
       label: "Kill the status update messages",
-      description: "A shared progress page means your client knows what's happening without asking you. Fewer \"just checking in\" messages means more deep work hours. That's the real value.",
+      description: "The portal shows your client what's done, what's next and whose turn it is, so they know where things stand without asking. Fewer \"just checking in\" emails means more hours for the actual work.",
     },
     {
       label: "Everything in one place",
-      description: "Contracts, payments, briefs, files, messages, approvals, and invoices are all tied to one project, one link. When a client asks about something six months later, you open one page, not your entire inbox.",
+      description: "Proposals, agreements, payments, briefs, files, messages, approvals and invoices all belong to one project, in one portal. When a client asks about something six months later, you open one page, not your entire inbox.",
     },
   ];
 

@@ -1,7 +1,7 @@
 import { useRef, useMemo } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
 
-const text = "We run a small web design studio. Every new client meant the same loop proposal in Gmail, contract as a PDF attachment, deposit chased over WhatsApp, brief scattered across a Google Doc. By the time work actually started, we'd lost half a day to admin. Pactrel is what we wished existed.";
+const text = "Freelance work starts with a strange tax. A proposal in one app, a contract as a PDF attachment, a deposit chased over WhatsApp, a brief scattered across a Google Doc. Half a day is gone before the real work begins. I built Pactrel so all of it happens in one place your client actually finishes.";
 
 const words = text.split(" ");
 
@@ -42,15 +42,17 @@ export function FounderNote() {
           Why we built this
         </div>
 
-        <p className="text-2xl sm:text-3xl md:text-[40px] font-medium leading-[1.4] tracking-tight mb-12 flex flex-wrap gap-x-[0.25em] gap-y-2">
+        <p className="text-2xl sm:text-3xl md:text-[40px] font-medium leading-[1.4] tracking-tight mb-12 w-full text-justify">
           {words.map((word, i) => (
-            <AnimatedWord
-              key={i}
-              word={word}
-              scrollYProgress={scrollYProgress}
-              start={wordRanges[i].start}
-              end={wordRanges[i].end}
-            />
+            <span key={i}>
+              <AnimatedWord
+                word={word}
+                scrollYProgress={scrollYProgress}
+                start={wordRanges[i].start}
+                end={wordRanges[i].end}
+              />
+              {i < words.length - 1 && " "}
+            </span>
           ))}
         </p>
 

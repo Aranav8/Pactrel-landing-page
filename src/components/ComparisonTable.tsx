@@ -1,5 +1,7 @@
+import { SIGNUP_URL } from "../lib/links";
 import { useState } from "react";
 import { Check, X } from "lucide-react";
+import { HandText, ArrowDown } from "./ui/Hand";
 import { SectionHeader } from "./ui/SectionHeader";
 
 export function ComparisonTable() {
@@ -15,7 +17,6 @@ export function ComparisonTable() {
       yearlyOriginal: "",
       badge: "Free plan",
       cta: "Start free →",
-      href: "https://app.pactrel.com/signup",
       description2: "Proposals, e-signature, deposits, briefs, files and the final invoice, end to end, on up to 3 projects.",
       highlight: false,
       yearlyCalc: "",
@@ -30,7 +31,6 @@ export function ComparisonTable() {
       yearlyOriginal: "$190",
       badge: "Founding price",
       cta: "Get started →",
-      href: "https://app.pactrel.com/signup",
       description2: "10 active projects, no Pactrel badge, automatic reminders and change orders. Everything in Free.",
       highlight: false,
       yearlyCalc: "($10/mo · 2 months free)",
@@ -45,7 +45,6 @@ export function ComparisonTable() {
       yearlyOriginal: "$390",
       badge: "Founding price",
       cta: "Get started →",
-      href: "https://app.pactrel.com/signup",
       description2: "Unlimited projects, 2 seats, recurring invoices, analytics, your own domain and required 2FA. Everything in Starter.",
       highlight: true,
       yearlyCalc: "($20.83/mo · 2 months free)",
@@ -336,20 +335,10 @@ export function ComparisonTable() {
                     </div>
                   </div>
                   <div className="flex flex-col items-center gap-1 -rotate-[6deg] pt-1">
-                    <span className={`font-mono text-[12px] font-medium tracking-tight ${plan.highlight ? 'text-[#e5c1a5]' : 'text-[#e5c1a5]/70'}`}>
+                    <HandText className={`text-[19px] leading-none ${plan.highlight ? "" : "opacity-70"}`}>
                       {plan.badge}
-                    </span>
-                    <svg 
-                      width="28" 
-                      height="28" 
-                      viewBox="0 0 100 100" 
-                      fill="none" 
-                      xmlns="http://www.w3.org/2000/svg" 
-                      className={`${plan.highlight ? 'text-[#e5c1a5]' : 'text-[#e5c1a5]/70'} translate-x-[-10px]`}
-                    >
-                      <path d="M 80 10 C 80 40 50 70 20 90" stroke="currentColor" strokeWidth="3" fill="none" strokeLinecap="round"/>
-                      <path d="M 40 90 L 20 90 L 20 70" stroke="currentColor" strokeWidth="3" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
+                    </HandText>
+                    <ArrowDown width={22} className={`text-[#e5c1a5] -scale-x-100 -translate-x-2 ${plan.highlight ? "" : "opacity-70"}`} />
                   </div>
                 </div>
 
@@ -393,13 +382,22 @@ export function ComparisonTable() {
                 </div>
                 
                 <div className="relative z-10 mt-auto pt-6 w-full flex flex-col items-center">
-                  <a
-                    href={plan.href}
-                    className={`w-full min-h-[52px] px-4 rounded-full flex items-center justify-center text-[15px] font-semibold tracking-wide transition-colors inline-flex shadow-lg whitespace-nowrap ${plan.highlight ? "text-white bg-[#2563eb] border border-[#2563eb]/50 hover:bg-[#1d4ed8]" : "text-black bg-[#E5E5E5] border border-transparent hover:bg-white"}`}
-                  >
-                    {plan.cta}
-                  </a>
-                  <span className="text-[12px] text-[#7A7A7A] mt-4 font-medium text-center">
+                  {(plan.href ?? SIGNUP_URL) ? (
+                    <a
+                      href={plan.href ?? SIGNUP_URL ?? undefined}
+                      className={`w-full min-h-[52px] px-4 rounded-full flex items-center justify-center text-[15px] font-semibold tracking-wide transition-colors inline-flex shadow-lg whitespace-nowrap ${plan.highlight ? "text-white bg-[#2563eb] border border-[#2563eb]/50 hover:bg-[#1d4ed8]" : "text-black bg-[#E5E5E5] border border-transparent hover:bg-white"}`}
+                    >
+                      {plan.cta}
+                    </a>
+                  ) : (
+                    <span
+                      aria-disabled="true"
+                      className={`w-full min-h-[52px] px-4 rounded-full flex items-center justify-center text-[15px] font-semibold tracking-wide inline-flex whitespace-nowrap cursor-default ${plan.highlight ? "text-white/80 bg-[#2563eb]/40 border border-[#2563eb]/30" : "text-white/60 bg-white/[0.06] border border-white/10"}`}
+                    >
+                      Opening soon
+                    </span>
+                  )}
+                  <span className="block text-[12px] leading-[1.5] min-h-[3lh] text-[#7A7A7A] mt-4 font-medium text-center">
                     {plan.finePrint}
                   </span>
                 </div>

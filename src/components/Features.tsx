@@ -1,47 +1,68 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { SectionHeader } from "./ui/SectionHeader";
+import { HandText, ArrowRight } from "./ui/Hand";
+import { Screenshot, SIDE_LABEL, type Side } from "./ui/Screenshot";
+
+interface View {
+  image: string;
+  alt: string;
+}
 
 interface TabContent {
   label: string;
   badgeIcon: string;
   heading: string;
   description: string;
-  image: string;
+  you: View;
+  client: View;
   accentClass: string;
 }
 
 const TAB_DATA: TabContent[] = [
   {
+    label: "Overview",
+    badgeIcon: "🏠",
+    heading: "One home for you. One link for your client.",
+    description: "Your dashboard shows what needs you. Your client gets a portal in your brand, with no account or password.",
+    you: { image: "/freelancer_dashboard.png", alt: "Your Pactrel dashboard: what needs you today, every project with what's been paid, upcoming payments and the kickoff call" },
+    client: { image: "/client_portal.png", alt: "Your client's portal home for a coffee company's website redesign: a design round waiting for review, project phases, the deposit paid directly to the studio, and recent files" },
+    accentClass: "from-indigo-500/20 to-blue-400/20",
+  },
+  {
     label: "Sign Agreement",
     badgeIcon: "✍️",
     heading: "Signed online, with a full audit trail. No printing, no scanning.",
-    description: "Upload your own contract (PDF or Word) or use the built-in wording. Clients type their signature, and Pactrel records the time, IP and a full audit trail. Both sides can download the signed agreement as a PDF.",
-    image: "/sign_contract.png",
+    description: "Your contract or ours. Your client signs online, and both sides get a signed PDF with a full audit trail.",
+    you: { image: "/freelancer_agreement.png", alt: "Your agreement with Northwind Coffee in Pactrel: eight parts already filled in from Pactrel's starter, with the option to use your own" },
+    client: { image: "/sign_contract.png", alt: "Your client's portal: reading and signing the agreement" },
     accentClass: "from-blue-500/20 to-teal-400/20",
   },
   {
     label: "Get Paid",
     badgeIcon: "💳",
     heading: "Paid before work starts. Straight to you.",
-    description: "After signing, the client sees a clear step to pay your deposit by bank transfer or your own payment link (Stripe, PayPal.me, Wise). The money goes straight to you, never through Pactrel. Split big projects into instalments, send the final invoice from the same portal, and mark each payment received. No transaction fees.",
-    image: "/deposit_collection.png",
+    description: "Your client pays you directly by bank transfer or your own payment link. No fees, and Pactrel never touches the money.",
+    you: { image: "/freelancer_payments.png", alt: "Setting the payment schedule in Pactrel: a $2,400 deposit and a $5,600 balance" },
+    client: { image: "/deposit_collection.png", alt: "Your client's portal: paying the deposit straight to you by bank transfer" },
     accentClass: "from-purple-500/20 to-indigo-400/20",
   },
   {
-    label: "Client Brief",
+    label: "Brief & Kickoff",
     badgeIcon: "👋",
-    heading: "Get everything you need, before the first call.",
-    description: "After the deposit, clients fill in your custom brief with goals, references, and brand assets all in one place. No more hunting through email threads to find a logo.",
-    image: "/client_intake.png",
+    heading: "Everything you need, and the first call booked.",
+    description: "Your client sends what you need, then books the kickoff from the times you've opened.",
+    you: { image: "/freelancer_brief.png", alt: "The checklist for Northwind Coffee in Pactrel: what the client sends you, with due dates tied to project stages" },
+    client: { image: "/client_intake.png", alt: "Your client's portal: answering the brief and booking the kickoff call" },
     accentClass: "from-pink-500/20 to-orange-400/20",
   },
   {
     label: "Run the Project",
     badgeIcon: "📊",
-    heading: "The whole project, in the same link.",
-    description: "After kickoff, the portal becomes the project: files, messages, deliverables your client approves, and a shared calendar. Scope changed? From Starter up, send a change order they sign. Clients always know where things stand without asking.",
-    image: "/project_tracking.png",
+    heading: "The whole project, in the same portal.",
+    description: "Updates, files, messages and approvals in one portal, right through to the final invoice.",
+    you: { image: "/freelancer_project.png", alt: "Your project in Pactrel: deliverables approved, changes requested, and round 2 waiting for the client" },
+    client: { image: "/project_tracking.png", alt: "Your client's portal: reviewing round 2 of the homepage design, with approve or ask for changes" },
     accentClass: "from-emerald-500/20 to-teal-400/20",
   },
 ];
@@ -49,13 +70,16 @@ const TAB_DATA: TabContent[] = [
 // Preload all feature images so tab switches are instant
 if (typeof window !== "undefined") {
   TAB_DATA.forEach((tab) => {
-    const img = new Image();
-    img.src = tab.image;
+    for (const view of [tab.you, tab.client]) {
+      const img = new Image();
+      img.src = view.image;
+    }
   });
 }
 
 export function Features() {
   const [activeTab, setActiveTab] = useState(0);
+  const [side, setSide] = useState<Side>("client");
   const duration = 6000; // 6 seconds per tab
 
   useEffect(() => {
@@ -64,13 +88,14 @@ export function Features() {
     }, duration);
 
     return () => clearTimeout(timer);
-  }, [activeTab]);
+  }, [activeTab, side]);
 
   const handleTabClick = (index: number) => {
     setActiveTab(index);
   };
 
   const currentTab = TAB_DATA[activeTab];
+  const currentView = currentTab[side];
 
   return (
     <section id="features" className="py-24 md:py-32 px-6 flex justify-center bg-black">
@@ -92,7 +117,7 @@ export function Features() {
                 <button
                   key={tab.label}
                   onClick={() => handleTabClick(idx)}
-                  className={`relative flex-1 shrink-0 py-2.5 rounded-xl md:rounded-full text-[13px] md:text-sm font-medium text-center cursor-pointer transition-colors overflow-hidden select-none outline-none px-2 md:px-0 whitespace-nowrap ${
+                  className={`relative flex-1 shrink-0 last:col-span-2 md:last:col-span-1 py-2.5 rounded-xl md:rounded-full text-[13px] md:text-sm font-medium text-center cursor-pointer transition-colors overflow-hidden select-none outline-none px-2 md:px-0 whitespace-nowrap ${
                     isActive ? "text-white" : "text-white/60 hover:text-white"
                   }`}
                 >
@@ -115,10 +140,36 @@ export function Features() {
           </div>
         </div>
 
+        {/* Which side of the portal to show */}
+        <div className="flex justify-center mb-4 md:mb-6">
+          <div role="tablist" aria-label="Whose screen" className="inline-flex p-1 rounded-full border border-white/10 bg-[#0A0A0A]">
+            {(["client", "you"] as Side[]).map((s) => (
+              <button
+                key={s}
+                role="tab"
+                aria-selected={side === s}
+                onClick={() => setSide(s)}
+                className={`relative px-4 py-1.5 rounded-full text-[13px] font-medium transition-colors cursor-pointer ${
+                  side === s ? "text-white" : "text-white/50 hover:text-white"
+                }`}
+              >
+                {side === s && (
+                  <motion.span
+                    layoutId="side-pill"
+                    className={`absolute inset-0 rounded-full ${s === "client" ? "bg-[#312e81]" : "bg-white/[0.12]"}`}
+                    transition={{ type: "spring", stiffness: 400, damping: 35 }}
+                  />
+                )}
+                <span className="relative z-10">{SIDE_LABEL[s]}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+
         <div className="w-full aspect-[4/3] sm:aspect-[16/9] bg-[#0A0A0A] rounded-3xl border border-white/5 flex items-center justify-center overflow-hidden relative shadow-2xl z-0">
           <AnimatePresence mode="popLayout">
             <motion.div
-              key={currentTab.image}
+              key={currentView.image}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
@@ -128,18 +179,19 @@ export function Features() {
             >
               {/* Background image to fill space with matching colors/gradient */}
               <img
-                src={currentTab.image}
+                src={currentView.image}
                 alt=""
                 decoding="async"
+                onError={(e) => { e.currentTarget.style.display = "none"; }}
                 className="absolute inset-0 w-full h-full object-cover blur-2xl scale-110 pointer-events-none select-none rounded-3xl"
               />
-              
+
               {/* Sharp foreground image displayed in full */}
-              <img
-                src={currentTab.image}
-                alt={currentTab.label}
-                decoding="async"
-                className="relative w-full h-full object-contain rounded-2xl py-2 md:py-4 px-0 z-10"
+              <Screenshot
+                key={currentView.image}
+                src={currentView.image}
+                alt={currentView.alt}
+                className="w-full h-full py-2 md:py-4 z-10"
               />
             </motion.div>
           </AnimatePresence>
@@ -156,20 +208,10 @@ export function Features() {
               transition={{ duration: 0.3 }}
             >
               <div className="flex items-center justify-center gap-3 mb-4 relative right-4">
-                <svg 
-                  width="28" 
-                  height="28" 
-                  viewBox="0 0 45 35" 
-                  fill="none" 
-                  xmlns="http://www.w3.org/2000/svg" 
-                  className="text-[#e5c1a5] rotate-180 -scale-y-100"
-                >
-                  <path d="M42 4 C 30 12 20 28 4 28" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                  <path d="M12 20 L 4 28 L 12 34" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-                <span className="text-[#e5c1a5] font-mono text-[11px] font-medium tracking-tight -rotate-2">
+                <HandText className="text-[20px] leading-none -rotate-[3deg]">
                   {currentTab.label}
-                </span>
+                </HandText>
+                <ArrowRight width={32} className="text-[#e5c1a5] order-first mt-1" />
               </div>
               <h3 className="text-2xl font-medium text-white mb-3">
                 {currentTab.heading}
