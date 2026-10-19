@@ -122,8 +122,8 @@ export function ComparisonTable() {
           agency: "200 GB",
         },
         {
-          name: "Saved templates",
-          description: "Reuse your proposals and project setups",
+          name: "Project standards",
+          description: "Save how you set up a kind of job, and every new one starts from it",
           free: "1",
           starter: "5",
           pro: "Unlimited",
