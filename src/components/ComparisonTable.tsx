@@ -254,24 +254,24 @@ export function ComparisonTable() {
           <span className="w-6 h-6 flex items-center justify-center rounded-full bg-green-500/10 border border-green-500/10 text-green-400">
             <Check className="w-3.5 h-3.5" strokeWidth={3} />
           </span>
-          <span className="text-[15px] text-[#FFF3F0]">Included</span>
+          <span className="text-[15px] text-[#FFFFFF]">Included</span>
         </div>
       ) : (
         <div className="inline-flex items-center justify-center gap-2.5 w-full">
           <span className="w-6 h-6 flex items-center justify-center rounded-full bg-red-500/10 border border-red-500/10 text-red-500">
             <X className="w-3.5 h-3.5" strokeWidth={3} />
           </span>
-          <span className="text-[15px] text-[#FFF3F0]/60">Not included</span>
+          <span className="text-[15px] text-[#FFFFFF]/60">Not included</span>
         </div>
       );
     }
     return (
-      <span className="text-[15px] text-[#FFF3F0] font-medium">{val}</span>
+      <span className="text-[15px] text-[#FFFFFF] font-medium">{val}</span>
     );
   };
 
   return (
-    <section id="pricing" className="w-full bg-black text-[#FFF3F0] py-24 md:py-32 px-6 relative z-10 selection:bg-purple-500/30 selection:text-white border-t border-white/5">
+    <section id="pricing" className="w-full bg-black text-[#FFFFFF] py-24 md:py-32 px-6 relative z-10 selection:bg-purple-500/30 selection:text-white border-t border-white/5">
       <div className="max-w-6xl w-full mx-auto grid gap-6">
         {/* Header */}
         <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-6 mb-4">
@@ -288,7 +288,7 @@ export function ComparisonTable() {
           <div className="inline-flex items-center gap-1.5 p-1.5 mb-2 rounded-full bg-[#0a0a0a] border border-white/5 shadow-sm shrink-0">
             <button
               onClick={() => setBilling("monthly")}
-              className={`relative min-w-[110px] min-h-[42px] px-4 rounded-full text-[15px] transition-colors duration-200 ${billing === "monthly" ? "font-semibold text-white" : "font-medium text-[#7A7A7A] hover:text-[#FFF3F0]"}`}
+              className={`relative min-w-[110px] min-h-[42px] px-4 rounded-full text-[15px] transition-colors duration-200 ${billing === "monthly" ? "font-semibold text-white" : "font-medium text-[#7A7A7A] hover:text-[#FFFFFF]"}`}
             >
               {billing === "monthly" && (
                 <div className="absolute inset-0 bg-[#1f1f1f] border border-white/5 rounded-full shadow-[inset_0_1px_rgba(255,255,255,0.05)]" />
@@ -297,7 +297,7 @@ export function ComparisonTable() {
             </button>
             <button
               onClick={() => setBilling("yearly")}
-              className={`relative min-w-[110px] min-h-[42px] px-4 rounded-full text-[15px] transition-colors duration-200 ${billing === "yearly" ? "font-semibold text-white" : "font-medium text-[#7A7A7A] hover:text-[#FFF3F0]"}`}
+              className={`relative min-w-[110px] min-h-[42px] px-4 rounded-full text-[15px] transition-colors duration-200 ${billing === "yearly" ? "font-semibold text-white" : "font-medium text-[#7A7A7A] hover:text-[#FFFFFF]"}`}
             >
               {billing === "yearly" && (
                 <div className="absolute inset-0 bg-[#1f1f1f] border border-white/5 rounded-full shadow-[inset_0_1px_rgba(255,255,255,0.05)]" />
@@ -327,7 +327,7 @@ export function ComparisonTable() {
 
                 <div className="relative z-10 flex items-start justify-between gap-3 mb-6">
                   <div>
-                    <div className="text-[21px] text-[#FFF3F0] tracking-tight font-semibold">
+                    <div className="text-[21px] text-[#FFFFFF] tracking-tight font-semibold">
                       {plan.name}
                     </div>
                     <div className="text-[13px] text-[#7A7A7A] mt-1.5">
@@ -356,7 +356,7 @@ export function ComparisonTable() {
                     )}
                   </div>
                   <div className="flex items-end gap-1.5 mb-1.5">
-                    <span className="text-[56px] leading-[1.1] tracking-[-0.06em] text-[#FFF3F0] font-medium">
+                    <span className="text-[56px] leading-[1.1] tracking-[-0.06em] text-[#FFFFFF] font-medium">
                       {billing === "monthly" ? plan.monthlyPrice : plan.yearlyPrice}
                     </span>
                     {plan.monthlyPrice !== "$0" && (
@@ -413,7 +413,7 @@ export function ComparisonTable() {
             {/* Matrix Column Headers */}
             <div className="col-span-1 md:col-span-5 grid grid-cols-1 md:grid-cols-subgrid mb-2 md:mb-2">
                <div className="p-4 md:px-5 flex flex-col justify-end gap-2.5 relative z-10">
-                 <div className="text-[21px] text-[#FFF3F0] tracking-tight font-medium">
+                 <div className="text-[21px] text-[#FFFFFF] tracking-tight font-medium">
                    Compare Features
                  </div>
                  <div className="text-[13px] text-[#7A7A7A] leading-relaxed max-w-[320px]">
@@ -430,7 +430,7 @@ export function ComparisonTable() {
               <div key={cIdx} className="col-span-1 md:col-span-5 grid grid-cols-1 md:grid-cols-subgrid gap-y-2">
                 <div className="col-span-1 md:col-span-5 mt-4 mb-1 z-10">
                   <div className="h-11 px-6 flex items-center rounded-full bg-[#111] border border-white/5">
-                    <span className="text-[11px] font-medium tracking-[0.04em] uppercase text-[#FFF3F0]/60">
+                    <span className="text-[11px] font-medium tracking-[0.04em] uppercase text-[#FFFFFF]/60">
                       {category.name}
                     </span>
                   </div>
@@ -443,7 +443,7 @@ export function ComparisonTable() {
                   >
                     <div className="min-h-[72px] rounded-t-2xl md:rounded-2xl p-4 md:px-5 flex items-center relative z-10 bg-[#0a0a0a] border-b border-white/5 md:border-transparent md:group-hover:bg-[#111] md:group-hover:border-white/5 transition-colors">
                       <div className="grid gap-1 min-w-0 pr-4">
-                        <div className="text-[15px] font-medium text-[#FFF3F0]">
+                        <div className="text-[15px] font-medium text-[#FFFFFF]">
                           {feature.name}
                         </div>
                         <div className="text-[13px] text-[#7A7A7A] mt-0.5 leading-snug">

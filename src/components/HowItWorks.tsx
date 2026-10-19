@@ -4,17 +4,17 @@ import { SectionHeader } from "./ui/SectionHeader";
 export function HowItWorks() {
   const steps = [
     {
-      icon: <Link className="w-6 h-6 text-[#FFF3F0]" />,
+      icon: <Link className="w-6 h-6 text-[#FFFFFF]" />,
       title: "Set up the project and send it",
       description: "Add your proposal, agreement, deposit and brief questions. Pactrel emails your client a branded invite.",
     },
     {
-      icon: <FileSignature className="w-6 h-6 text-[#FFF3F0]" />,
+      icon: <FileSignature className="w-6 h-6 text-[#FFFFFF]" />,
       title: "Client signs, pays and briefs you",
       description: "One press from the email opens their portal. They accept, e-sign, pay your deposit directly, fill in the brief and book the kickoff call.",
     },
     {
-      icon: <Rocket className="w-6 h-6 text-[#FFF3F0]" />,
+      icon: <Rocket className="w-6 h-6 text-[#FFFFFF]" />,
       title: "Run the project. Send the final invoice.",
       description: "Post updates, share files and messages, and get deliverables approved in the same portal. When the work is done, the final invoice goes out from there too.",
     },
@@ -60,7 +60,7 @@ export function HowItWorks() {
                   {step.icon}
                 </div>
               </div>
-              <h3 className="text-xl font-medium text-[#FFF3F0] mb-3">
+              <h3 className="text-xl font-medium text-[#FFFFFF] mb-3">
                 {step.title}
               </h3>
               <p className="text-[#7A7A7A] max-w-[260px] text-base leading-relaxed">

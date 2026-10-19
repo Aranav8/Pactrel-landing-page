@@ -129,7 +129,7 @@ export function Hero() {
             <ArrowSweep width={80} className="text-[#e5c1a5] -mt-0.5" />
           </div>
 
-          <h1 className="text-4xl sm:text-5xl md:text-[56px] text-[#FFF3F0] leading-[1.1] tracking-[-0.04em] font-medium text-balance">
+          <h1 className="text-4xl sm:text-5xl md:text-[56px] text-[#FFFFFF] leading-[1.1] tracking-[-0.04em] font-medium text-balance">
             From “yes” to deposit paid,<br className="hidden sm:block" /> in one link.
           </h1>
         </div>

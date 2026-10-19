@@ -42,7 +42,7 @@ export function Benefits() {
                 <Check className="w-6 h-6 text-[#2563eb]" strokeWidth={2.5} />
               </div>
               <div className="flex flex-col gap-2">
-                <span className="text-[19px] font-medium text-[#FFF3F0] tracking-tight">
+                <span className="text-[19px] font-medium text-[#FFFFFF] tracking-tight">
                   {benefit.label}
                 </span>
                 <span className="text-[15px] text-white/60 leading-relaxed">

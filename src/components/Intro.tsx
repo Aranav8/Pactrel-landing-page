@@ -14,7 +14,7 @@ export function Intro() {
 
   return (
     <section className="py-24 md:py-32 px-6 flex justify-center relative bg-black">
-      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#FFF3F0]/20 to-transparent max-w-6xl mx-auto" />
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#FFFFFF]/20 to-transparent max-w-6xl mx-auto" />
       <div className="max-w-6xl w-full">
         <SectionHeader
           badge="The problem"

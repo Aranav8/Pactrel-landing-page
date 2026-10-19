@@ -42,10 +42,10 @@ function ContactForm({ className = "" }: { className?: string }) {
 
   return (
     <div className={`bg-[#0a0a0a] border border-white/5 rounded-[24px] p-8 flex flex-col w-full ${className}`}>
-      <h4 className="text-xl font-medium text-[#FFF3F0] mb-3">
+      <h4 className="text-xl font-medium text-[#FFFFFF] mb-3">
         Still have questions?
       </h4>
-      <p className="text-[#FFF3F0]/60 text-[15px] mb-6 leading-relaxed">
+      <p className="text-[#FFFFFF]/60 text-[15px] mb-6 leading-relaxed">
         We built this for freelancers. Send us a message and we'll get back to you fast.
       </p>
       
@@ -245,8 +245,8 @@ export function FAQ() {
                     }}
                     className={`px-5 py-4 rounded-[60px] cursor-pointer transition-colors text-center ${
                       isActive 
-                        ? "bg-[#1f1f1f]/85 border border-white/5 shadow-[inset_0_1px_rgba(255,255,255,0.05)] text-[#FFF3F0]" 
-                        : "text-[#FFF3F0]/80 hover:bg-white/[0.04]"
+                        ? "bg-[#1f1f1f]/85 border border-white/5 shadow-[inset_0_1px_rgba(255,255,255,0.05)] text-[#FFFFFF]" 
+                        : "text-[#FFFFFF]/80 hover:bg-white/[0.04]"
                     }`}
                   >
                     <span className="font-medium text-[15px]">{cat}</span>
@@ -278,7 +278,7 @@ export function FAQ() {
                       className="group flex flex-col p-6 py-7 md:px-8 bg-[#0a0a0a] border border-white/5 rounded-[20px] cursor-pointer hover:bg-[#111] hover:border-white/10 transition-colors"
                     >
                       <div className="flex justify-between items-center w-full gap-4">
-                        <span className="text-[#FFF3F0] text-[17px] font-medium leading-snug">
+                        <span className="text-[#FFFFFF] text-[17px] font-medium leading-snug">
                           {q.question}
                         </span>
                         <div className="w-9 h-9 rounded-full bg-[#171717] flex items-center justify-center border border-white/10 shrink-0 group-hover:bg-[#202020] transition-colors">

@@ -3,7 +3,7 @@ import { ReactNode } from "react";
 export function Badge({ children }: { children: ReactNode }) {
   return (
     <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 shadow-sm backdrop-blur-sm">
-      <div className="w-1.5 h-1.5 rounded-full bg-[#FFF3F0]/40 animate-blink" />
+      <div className="w-1.5 h-1.5 rounded-full bg-[#FFFFFF]/40 animate-blink" />
       <span className="text-sm font-medium text-white/80">{children}</span>
     </div>
   );

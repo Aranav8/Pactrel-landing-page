@@ -40,7 +40,7 @@ export function FinalCTA() {
         <GradientBackground />
 
         <div className="flex w-full flex-col items-center max-w-2xl relative z-10 text-center">
-          <h2 className="text-4xl sm:text-5xl md:text-[56px] leading-[1.1] tracking-[-0.04em] text-[#FFF3F0] mb-5 text-balance">
+          <h2 className="text-4xl sm:text-5xl md:text-[56px] leading-[1.1] tracking-[-0.04em] text-[#FFFFFF] mb-5 text-balance">
             Your next client could sign and pay this week.
           </h2>
           <p className="text-[15px] sm:text-[17px] text-white/65 mb-10 text-balance">

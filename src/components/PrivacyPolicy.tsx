@@ -7,7 +7,7 @@ const list = "list-disc pl-5 space-y-2";
 
 export function PrivacyPolicy() {
   return (
-    <div className="min-h-screen bg-black text-[#FFF3F0]/80 pt-32 pb-24 px-6">
+    <div className="min-h-screen bg-black text-[#FFFFFF]/80 pt-32 pb-24 px-6">
       <div className="max-w-3xl mx-auto space-y-8">
         <h1 className="text-4xl md:text-5xl font-medium text-white mb-12">Privacy Policy</h1>
 
