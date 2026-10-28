@@ -116,7 +116,7 @@ export function ComparisonTable() {
         {
           name: "Storage",
           description: "For files shared in your portals",
-          free: "512 MB",
+          free: "100 MB",
           starter: "5 GB",
           pro: "50 GB",
           agency: "200 GB",
