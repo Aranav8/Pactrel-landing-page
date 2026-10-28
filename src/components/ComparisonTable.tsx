@@ -84,7 +84,7 @@ export function ComparisonTable() {
         {
           name: "Projects",
           description: "Free counts projects sent; paid plans count active ones",
-          free: "3 sent, ever",
+          free: "1 sent, ever",
           starter: "10 active",
           pro: "Unlimited",
           agency: "Unlimited",
