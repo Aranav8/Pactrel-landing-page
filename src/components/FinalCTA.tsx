@@ -44,7 +44,7 @@ export function FinalCTA() {
             Your next client could sign and pay this week.
           </h2>
           <p className="text-[15px] sm:text-[17px] text-white/65 mb-10 text-balance">
-            Set up in 30 minutes. Free for your first 3 projects, no card needed.
+            Set up in 30 minutes. Your first project is free, no card needed.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full">

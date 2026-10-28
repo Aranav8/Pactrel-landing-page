@@ -36,7 +36,7 @@ export function TermsAndConditions() {
 
           <h2 className={h2}>4. Plans and Limits</h2>
           <p>
-            Pactrel offers a Free plan and paid plans (Starter, Pro and Agency). Each plan has limits, such as the number of projects you can send or have active, storage, saved templates, seats and brands, and some features are only available on certain plans. The current limits and features are shown on our pricing page. The Free plan allows 3 projects sent in total, including projects sent while you were on a paid plan, and portals on the Free plan show a "Powered by Pactrel" badge.
+            Pactrel offers a Free plan and paid plans (Starter, Pro and Agency). Each plan has limits, such as the number of projects you can send or have active, storage, saved templates, seats and brands, and some features are only available on certain plans. The current limits and features are shown on our pricing page. The Free plan allows 1 project sent in total, including projects sent while you were on a paid plan, and portals on the Free plan show a "Powered by Pactrel" badge.
           </p>
 
           <h2 className={h2}>5. Subscriptions, Billing, and Cancellation</h2>
@@ -51,7 +51,7 @@ export function TermsAndConditions() {
           </p>
           <ul className={list}>
             <li>Projects you have already sent stay live, and your clients can still open and use them.</li>
-            <li>You can only send new projects within the Free plan's limit of 3 projects sent in total, which counts projects sent on a paid plan.</li>
+            <li>You can only send new projects within the Free plan's limit of 1 project sent in total, which counts projects sent on a paid plan.</li>
             <li>The "Powered by Pactrel" badge returns, and paid features switch off, including automatic reminders, recurring invoices, change orders, analytics and your custom domain.</li>
             <li>The Free plan's storage and template limits apply again.</li>
           </ul>

@@ -156,7 +156,7 @@ const faqs = [
   {
     category: "Pricing & Plans",
     question: "Is there a free trial?",
-    answer: "There's no trial because there's a Free plan: send up to 3 projects, end to end, at no cost. Paid plans lift the project limit, remove the Pactrel badge, and add more features. The first 100 paying customers get the founding price, and keep it for as long as they stay subscribed."
+    answer: "There's no trial because there's a Free plan: send one project, end to end, at no cost. Paid plans lift the project limit, remove the Pactrel badge, and add more features. The first 100 paying customers get the founding price, and keep it for as long as they stay subscribed."
   },
   {
     category: "Pricing & Plans",
@@ -166,7 +166,7 @@ const faqs = [
   {
     category: "Pricing & Plans",
     question: "Do you charge per client or per project?",
-    answer: "No. All plans are flat pricing, monthly or yearly, with no per-client fees. The limits are on projects: Free includes 3 projects sent (ever), Starter includes 10 active projects at a time, and Pro and Agency are unlimited."
+    answer: "No. All plans are flat pricing, monthly or yearly, with no per-client fees. The limits are on projects: Free includes 1 project sent (ever), Starter includes 10 active projects at a time, and Pro and Agency are unlimited."
   },
 
   // Client Experience

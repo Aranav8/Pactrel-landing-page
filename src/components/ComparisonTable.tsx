@@ -17,10 +17,10 @@ export function ComparisonTable() {
       yearlyOriginal: "",
       badge: "Free plan",
       cta: "Start free →",
-      description2: "Proposals, e-signature, deposits, briefs, files and the final invoice, end to end, on up to 3 projects.",
+      description2: "Proposals, e-signature, deposits, briefs, files and the final invoice, end to end, on one project.",
       highlight: false,
       yearlyCalc: "",
-      finePrint: "3 projects sent, ever. Shows a Powered by Pactrel badge."
+      finePrint: "1 project sent, ever. Shows a Powered by Pactrel badge."
     },
     {
       name: "Starter",
