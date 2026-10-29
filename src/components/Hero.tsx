@@ -1,4 +1,4 @@
-import { useRef, useCallback, useState } from "react";
+import { useRef, useCallback, useState, useEffect } from "react";
 import {
   motion,
   useScroll,
@@ -6,6 +6,7 @@ import {
   useMotionValue,
   useSpring,
   useInView,
+  useReducedMotion,
 } from "motion/react";
 import { GrainGradient } from "@paper-design/shaders-react";
 import { HandText, ArrowSweep } from "./ui/Hand";
@@ -25,6 +26,72 @@ export function Hero() {
     offset: ["start start", "end start"],
   });
   const isGradientInView = useInView(containerRef, { margin: "400px 0px" });
+
+  // Video card grows from its old 960px size to full bleed as it scrolls into view
+  const videoWrapRef = useRef<HTMLDivElement>(null);
+  const reduceMotion = useReducedMotion();
+  const [startScale, setStartScale] = useState(0.7);
+  useEffect(() => {
+    const update = () => {
+      // Must match the wrapper's px-4 / md:px-6 / lg:px-32 and the max-w-[1200px] cap
+      const pad = window.innerWidth < 768 ? 32 : window.innerWidth < 1024 ? 48 : 256;
+      const full = Math.min(1200, window.innerWidth - pad);
+      setStartScale(Math.min(1, Math.min(960, full) / full));
+    };
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
+  // Muted ambient loop while on screen; "Watch with sound" restarts it with audio.
+  // Skipped for reduced-motion and data-saver visitors (they get the poster + button).
+  const isVideoInView = useInView(videoWrapRef, { amount: 0.25 });
+  const [canAutoplay, setCanAutoplay] = useState(false);
+  useEffect(() => {
+    const saveData = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData;
+    setCanAutoplay(!reduceMotion && !saveData);
+  }, [reduceMotion]);
+  // Own controls instead of the native bar: click to pause, mute toggle, thin progress line
+  const [paused, setPaused] = useState(false);
+  const [muted, setMuted] = useState(true);
+  const progressRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    if (isVideoInView && (playing ? !paused : canAutoplay)) v.play().catch(() => {});
+    else v.pause();
+  }, [isVideoInView, canAutoplay, playing, paused]);
+
+  const playWithSound = () => {
+    const v = videoRef.current;
+    if (!v) return;
+    v.currentTime = 0;
+    v.muted = false;
+    setMuted(false);
+    setPaused(false);
+    setPlaying(true);
+    v.play().catch(() => {});
+  };
+
+  const toggleMute = () => {
+    const v = videoRef.current;
+    if (!v) return;
+    v.muted = !v.muted;
+    setMuted(v.muted);
+  };
+
+  const seek = (e: React.MouseEvent<HTMLDivElement>) => {
+    const v = videoRef.current;
+    if (!v || !v.duration) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    v.currentTime = ((e.clientX - rect.left) / rect.width) * v.duration;
+  };
+
+  const { scrollYProgress: videoProgress } = useScroll({
+    target: videoWrapRef,
+    offset: ["start end", "end end"],
+  });
+  const videoScale = useTransform(videoProgress, [0, 1], [reduceMotion ? 1 : startScale, 1]);
+  const videoRadius = useTransform(videoProgress, [0, 1], [24, 16]);
 
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -53,7 +120,6 @@ export function Hero() {
 
   // Scroll parallax
   const yMid = useTransform(scrollYProgress, [0, 1], [0, 200]);
-  const yMockup = useTransform(scrollYProgress, [0, 1], [0, 100]);
   const yFore = useTransform(scrollYProgress, [0, 1], [0, 50]);
 
   // Optimized separate motion values for native Framer Motion styling
@@ -153,36 +219,124 @@ export function Hero() {
             See how it works ↓
           </a>
         </div>
+      </div>
 
-        {/* Launch video: click to play, with sound and controls */}
+      {/* Launch video: rises in on load, scales to full bleed on scroll; click to play */}
+      <div ref={videoWrapRef} className="relative z-20 w-full px-4 md:px-6 lg:px-32">
         <motion.div
-          style={{ y: yMockup, willChange: "transform" }}
-          className="w-full max-w-[960px] aspect-video rounded-[16px] shadow-2xl relative overflow-hidden z-20 border border-white/10 bg-[#0A0A0A]"
+          className="max-w-[1200px] mx-auto"
+          initial={reduceMotion ? false : { opacity: 0, y: 120 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.1, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
         >
-          <video
-            ref={videoRef}
-            src={LAUNCH_VIDEO}
-            poster={LAUNCH_POSTER}
-            controls={playing}
-            playsInline
-            preload="metadata"
-            onEnded={() => setPlaying(false)}
-            className="w-full h-full object-cover"
-          />
-          {!playing && (
-            <button
-              type="button"
-              onClick={() => { setPlaying(true); videoRef.current?.play(); }}
-              aria-label="Play the Pactrel launch video"
-              className="group absolute inset-0 flex items-center justify-center cursor-pointer"
-            >
-              <span className="w-20 h-20 rounded-full bg-[#2563eb] flex items-center justify-center shadow-[0_0_60px_rgba(37,99,235,0.5)] group-hover:scale-105 group-hover:bg-[#1d4ed8] transition-transform">
-                <svg width="26" height="26" viewBox="0 0 24 24" fill="white" aria-hidden="true" className="ml-1">
-                  <path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z" />
-                </svg>
-              </span>
-            </button>
-          )}
+          <motion.div
+            style={{ scale: videoScale, borderRadius: videoRadius, transformOrigin: "50% 0%", willChange: "transform" }}
+            className="w-full aspect-video shadow-2xl relative overflow-hidden border border-white/10 bg-[#0A0A0A]"
+          >
+            <video
+              ref={videoRef}
+              src={LAUNCH_VIDEO}
+              poster={LAUNCH_POSTER}
+              muted
+              loop={!playing}
+              playsInline
+              preload={canAutoplay ? "auto" : "metadata"}
+              onTimeUpdate={(e) => {
+                const v = e.currentTarget;
+                if (progressRef.current && v.duration) {
+                  progressRef.current.style.transform = `scaleX(${v.currentTime / v.duration})`;
+                }
+              }}
+              onEnded={() => {
+                // Back to the silent loop after a full watch
+                if (videoRef.current) videoRef.current.muted = true;
+                setMuted(true);
+                setPlaying(false);
+              }}
+              className="w-full h-full object-cover"
+            />
+            {playing && (
+              <div className="group absolute inset-0">
+                <button
+                  type="button"
+                  onClick={() => setPaused((p) => !p)}
+                  aria-label={paused ? "Play video" : "Pause video"}
+                  className="absolute inset-0 cursor-pointer"
+                />
+                <div
+                  className={`absolute left-4 bottom-5 md:left-6 md:bottom-7 flex items-center gap-1 p-1 rounded-full bg-black/55 backdrop-blur-md border border-white/15 transition-opacity duration-300 ${paused ? "opacity-100" : "opacity-0 group-hover:opacity-100 [@media(hover:none)]:opacity-100"}`}
+                >
+                  <button
+                    type="button"
+                    onClick={() => setPaused((p) => !p)}
+                    aria-label={paused ? "Play video" : "Pause video"}
+                    className="w-8 h-8 rounded-full bg-[#2563eb] hover:bg-[#1d4ed8] flex items-center justify-center transition-colors"
+                  >
+                    {paused ? (
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="white" aria-hidden="true" className="ml-0.5">
+                        <path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z" />
+                      </svg>
+                    ) : (
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="white" aria-hidden="true">
+                        <rect x="6" y="5" width="4" height="14" rx="1" />
+                        <rect x="14" y="5" width="4" height="14" rx="1" />
+                      </svg>
+                    )}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={toggleMute}
+                    aria-label={muted ? "Unmute" : "Mute"}
+                    className="w-8 h-8 rounded-full hover:bg-white/10 flex items-center justify-center text-white transition-colors"
+                  >
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <path d="M11 5 6 9H2v6h4l5 4V5z" fill="currentColor" />
+                      {muted ? (
+                        <path d="m22 9-6 6M16 9l6 6" />
+                      ) : (
+                        <path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14" />
+                      )}
+                    </svg>
+                  </button>
+                </div>
+                {/* Thin progress line, click to seek */}
+                <div onClick={seek} className="absolute inset-x-0 bottom-0 h-3 flex items-end cursor-pointer">
+                  <div className="w-full h-[3px] bg-white/15">
+                    <div
+                      ref={progressRef}
+                      className="h-full bg-[#2563eb] origin-left transition-transform duration-300 ease-linear"
+                      style={{ transform: "scaleX(0)" }}
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
+            {!playing && (
+              <button
+                type="button"
+                onClick={playWithSound}
+                aria-label="Play the Pactrel launch video with sound"
+                className={`group absolute inset-0 flex cursor-pointer ${canAutoplay ? "items-end justify-start p-4 md:p-6" : "items-center justify-center"}`}
+              >
+                {canAutoplay ? (
+                  <span className="flex items-center gap-2 pl-2 pr-4 py-2 rounded-full bg-black/55 backdrop-blur-md border border-white/15 text-white text-[13px] md:text-[14px] font-semibold group-hover:bg-[#2563eb] group-hover:border-[#2563eb] transition-colors">
+                    <span className="w-7 h-7 rounded-full bg-[#2563eb] flex items-center justify-center">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="white" aria-hidden="true" className="ml-0.5">
+                        <path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z" />
+                      </svg>
+                    </span>
+                    Watch with sound
+                  </span>
+                ) : (
+                  <span className="w-20 h-20 rounded-full bg-[#2563eb] flex items-center justify-center shadow-[0_0_60px_rgba(37,99,235,0.5)] group-hover:scale-105 group-hover:bg-[#1d4ed8] transition-transform">
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="white" aria-hidden="true" className="ml-1">
+                      <path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z" />
+                    </svg>
+                  </span>
+                )}
+              </button>
+            )}
+          </motion.div>
         </motion.div>
       </div>
     </section>
