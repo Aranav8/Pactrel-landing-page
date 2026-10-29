@@ -11,8 +11,8 @@ import { GrainGradient } from "@paper-design/shaders-react";
 import { HandText, ArrowSweep } from "./ui/Hand";
 import { signupLinkProps } from "../lib/links";
 
-// Drop the files into /public with these names
-const LAUNCH_VIDEO = "/launch.mp4";
+// Video is on Cloudflare R2 (too big for the repo); poster lives in /public
+const LAUNCH_VIDEO = "https://media.pactrel.com/launch.mp4";
 const LAUNCH_POSTER = "/launch-poster.jpg";
 
 export function Hero() {
