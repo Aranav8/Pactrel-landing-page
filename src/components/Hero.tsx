@@ -44,7 +44,8 @@ export function Hero() {
   }, []);
   // Muted ambient loop while on screen; "Watch with sound" restarts it with audio.
   // Skipped for reduced-motion and data-saver visitors (they get the poster + button).
-  const isVideoInView = useInView(videoWrapRef, { amount: 0.25 });
+  // Half the card must be on screen, so it waits for a scroll instead of starting above the fold
+  const isVideoInView = useInView(videoWrapRef, { amount: 0.5 });
   const [canAutoplay, setCanAutoplay] = useState(false);
   useEffect(() => {
     const saveData = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData;
@@ -240,7 +241,7 @@ export function Hero() {
               muted
               loop={!playing}
               playsInline
-              preload={canAutoplay ? "auto" : "metadata"}
+              preload="metadata"
               onTimeUpdate={(e) => {
                 const v = e.currentTarget;
                 if (progressRef.current && v.duration) {
