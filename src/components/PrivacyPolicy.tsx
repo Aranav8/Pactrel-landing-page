@@ -69,6 +69,7 @@ export function PrivacyPolicy() {
             <li><strong>Waitlist:</strong> your email address and the plan and billing period you chose. We store this as a contact in our email provider, Resend, and send a notification to our own inbox and a confirmation to you. To be removed from the waitlist, email hello@pactrel.com.</li>
             <li><strong>Contact form:</strong> your email address and your message, which are delivered to our inbox through Resend so we can reply. We do not send a copy back to the address entered.</li>
             <li><strong>Analytics:</strong> only if you click "Accept" on the cookie banner, we load Microsoft Clarity, which records how you use the site (including clicks, scrolling and session recordings) along with your IP address, browser and device information. If you decline or ignore the banner, Clarity is not loaded.</li>
+            <li><strong>Page view statistics:</strong> we use Vercel Web Analytics to count page views and see which pages, referrers, countries and device types are most common. It does not use cookies, and visitors are counted with a hash that changes every day, so it cannot identify you or follow you across days or sites.</li>
           </ul>
 
           <h2 className={h2}>5. Cookies and similar technologies</h2>
@@ -90,7 +91,7 @@ export function PrivacyPolicy() {
           <h2 className={h2}>7. Service providers (processors)</h2>
           <p>We share personal data only with providers that help us run Pactrel:</p>
           <ul className={list}>
-            <li><strong>Vercel:</strong> hosting for the website and app.</li>
+            <li><strong>Vercel:</strong> hosting for the website and app, and cookieless page view statistics for the website.</li>
             <li><strong>Supabase:</strong> database, authentication and file storage.</li>
             <li><strong>Resend:</strong> email delivery.</li>
             <li><strong>Upstash:</strong> rate limiting.</li>
