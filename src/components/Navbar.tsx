@@ -1,4 +1,4 @@
-import { LOGIN_URL, signupLinkProps } from "../lib/links";
+import { LOGIN_URL, NEW_TAB, signupLinkProps } from "../lib/links";
 import { useState, useEffect, useRef } from "react";
 
 export function Navbar() {
@@ -61,7 +61,7 @@ export function Navbar() {
 
           <div className="flex items-center gap-4 hidden md:flex">
             {LOGIN_URL && (
-              <a href={LOGIN_URL} className="text-[13px] font-medium text-white/70 hover:text-white transition-colors">
+              <a href={LOGIN_URL} {...NEW_TAB} className="text-[13px] font-medium text-white/70 hover:text-white transition-colors">
                 Log in
               </a>
             )}
@@ -73,7 +73,7 @@ export function Navbar() {
           {/* Mobile nav placeholder */}
           <div className="md:hidden flex items-center gap-4">
             {LOGIN_URL && (
-              <a href={LOGIN_URL} className="text-sm font-medium text-white/70 hover:text-white">
+              <a href={LOGIN_URL} {...NEW_TAB} className="text-sm font-medium text-white/70 hover:text-white">
                 Log in
               </a>
             )}

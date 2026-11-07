@@ -1,4 +1,4 @@
-import { planSignupUrl } from "../lib/links";
+import { NEW_TAB, planSignupUrl } from "../lib/links";
 import { useState } from "react";
 import { Check, X } from "lucide-react";
 import { HandText, ArrowDown } from "./ui/Hand";
@@ -385,6 +385,7 @@ export function ComparisonTable() {
                   {(plan.href ?? planSignupUrl(plan.name, billing)) ? (
                     <a
                       href={plan.href ?? planSignupUrl(plan.name, billing) ?? undefined}
+                      {...(plan.href ? {} : NEW_TAB)}
                       className={`w-full min-h-[52px] px-4 rounded-full flex items-center justify-center text-[15px] font-semibold tracking-wide transition-colors inline-flex shadow-lg whitespace-nowrap ${plan.highlight ? "text-white bg-[#2563eb] border border-[#2563eb]/50 hover:bg-[#1d4ed8]" : "text-black bg-[#E5E5E5] border border-transparent hover:bg-white"}`}
                     >
                       {plan.cta}
