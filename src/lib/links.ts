@@ -1,8 +1,11 @@
-// Signup is switched off until the app is ready to take new users.
-// To switch it back on, set this to "https://app.pactrel.com/signup".
-// While it's null, "Start free" buttons scroll to pricing and the plan
-// buttons show "Opening soon".
-export const SIGNUP_URL: string | null = null;
+// Where "Start free" and the plan buttons send people. Set it to null to switch
+// signup off: "Start free" then scrolls to pricing and the plan buttons show
+// "Opening soon".
+export const SIGNUP_URL: string | null = "https://app.pactrel.com/signup";
+
+// "Log in" for returning customers. Hidden while signup is off, since nobody has
+// an account to log in to yet.
+export const LOGIN_URL: string | null = SIGNUP_URL ? "https://app.pactrel.com/login" : null;
 
 // A plan button's signup link. A paid plan rides along as ?plan=&cycle=, so the
 // app sends them to checkout right after setup. Null while signup is off.

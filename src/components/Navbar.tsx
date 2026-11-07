@@ -1,4 +1,4 @@
-import { signupLinkProps } from "../lib/links";
+import { LOGIN_URL, signupLinkProps } from "../lib/links";
 import { useState, useEffect, useRef } from "react";
 
 export function Navbar() {
@@ -60,13 +60,23 @@ export function Navbar() {
           </div>
 
           <div className="flex items-center gap-4 hidden md:flex">
+            {LOGIN_URL && (
+              <a href={LOGIN_URL} className="text-[13px] font-medium text-white/70 hover:text-white transition-colors">
+                Log in
+              </a>
+            )}
             <a {...signupLinkProps()} className="text-[13px] font-medium px-5 py-2.5 text-white transition-all rounded-full border border-white/10 bg-black/20 backdrop-blur-md hover:bg-black/40 hover:border-white/20 shadow-lg">
               Start free
             </a>
           </div>
 
           {/* Mobile nav placeholder */}
-          <div className="md:hidden flex items-center">
+          <div className="md:hidden flex items-center gap-4">
+            {LOGIN_URL && (
+              <a href={LOGIN_URL} className="text-sm font-medium text-white/70 hover:text-white">
+                Log in
+              </a>
+            )}
             <a {...signupLinkProps()} className="text-sm font-medium px-4 py-2 bg-white text-black rounded-full hover:bg-white/90">
               Start free
             </a>
