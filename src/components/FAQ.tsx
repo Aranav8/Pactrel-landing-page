@@ -156,7 +156,7 @@ const faqs = [
   {
     category: "Pricing & Plans",
     question: "Is there a free trial?",
-    answer: "There's no trial because there's a Free plan: send one project, end to end, at no cost. Paid plans lift the project limit, remove the Pactrel badge, and add more features. The first 100 paying customers get the founding price, and keep it for as long as they stay subscribed."
+    answer: "There's no trial because there's a Free plan: send one project, end to end, at no cost. Before you send, build as many drafts as you like and preview every page as your client will see it: none of that counts, so there's no need to send yourself a test. Paid plans lift the project limit, remove the Pactrel badge, and add more features. The first 100 paying customers get the founding price, and keep it for as long as they stay subscribed."
   },
   {
     category: "Pricing & Plans",

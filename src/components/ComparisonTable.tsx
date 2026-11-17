@@ -20,7 +20,7 @@ export function ComparisonTable() {
       description2: "Proposals, e-signature, deposits, briefs, files and the final invoice, end to end, on one project.",
       highlight: false,
       yearlyCalc: "",
-      finePrint: "1 project sent, ever. Shows a Powered by Pactrel badge."
+      finePrint: "1 project sent, ever. Build and preview as your client as often as you like: only sending counts. Shows a Powered by Pactrel badge."
     },
     {
       name: "Starter",
@@ -83,7 +83,7 @@ export function ComparisonTable() {
       features: [
         {
           name: "Projects",
-          description: "Free counts projects sent; paid plans count active ones",
+          description: "Free counts projects sent, not drafts or previews; paid plans count active ones",
           free: "1 sent, ever",
           starter: "10 active",
           pro: "Unlimited",
